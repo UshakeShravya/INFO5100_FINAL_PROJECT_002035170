@@ -9,9 +9,13 @@ import Business.EcoSystem;
 import Business.Role.Role;
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
+import java.awt.Component;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+
 
 /**
  *
@@ -24,7 +28,22 @@ public class MainFrame extends JFrame {
      */
     public MainFrame() {
         initComponents();
+        
+        // Replace default panel with background-enabled panel
+ImageBackgroundPanel bgPanel = new ImageBackgroundPanel("/images/CinmaGif.gif");
+
+// Copy layout and children from the original panel
+bgPanel.setLayout(workarea.getLayout());
+for (Component c : workarea.getComponents()) {
+    bgPanel.add(c);
+}
+
+// Replace the reference
+jSplitPane1.setRightComponent(bgPanel);
+workarea = bgPanel; // Update your variable so future .add(...) still works
+
     }
+
     
     private EcoSystem system = new EcoSystem(); 
     /**
@@ -108,7 +127,8 @@ public class MainFrame extends JFrame {
 
         workarea.setLayout(new java.awt.CardLayout());
 
-        jLabel1.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Cinema And Theatre Management System");
         workarea.add(jLabel1, "card2");
