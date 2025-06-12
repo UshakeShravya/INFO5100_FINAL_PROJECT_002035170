@@ -7,15 +7,17 @@ package ui.ProducerPanel;
 import Business.EcoSystem;
 import Business.WorkRequest.MovieAcquisitionRequest;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Component;
 import javax.swing.JPanel;
 import javax.swing.JOptionPane;
+import ui.GradientPanel;
 
 /**
  *
  * @author ushakeshravya
  */
-public class MovieAcquisitionRequestPanel extends javax.swing.JPanel {
+public class MovieAcquisitionRequestPanel extends GradientPanel {
     private final JPanel workarea;
      private final EcoSystem system; 
 
@@ -24,6 +26,15 @@ public class MovieAcquisitionRequestPanel extends javax.swing.JPanel {
      * Creates new form MovieAcquisitionRequestPanel
      */
     public MovieAcquisitionRequestPanel(JPanel workarea, EcoSystem system) {
+         super(
+            new Color[] {
+                new Color(139, 0, 0),     // red
+                new Color(30, 30, 30),    // black
+                new Color(192, 192, 192)  // silver
+            },
+            new float[] { 0f, 0.5f, 1f }
+        );
+         
         this.workarea = workarea;
         this.system   = system;
         initComponents();
