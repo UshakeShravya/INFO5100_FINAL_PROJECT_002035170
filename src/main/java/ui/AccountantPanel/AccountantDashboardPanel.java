@@ -5,6 +5,7 @@
 package ui.AccountantPanel;
 
 import Business.EcoSystem;
+import Business.UserAccount.UserAccount;
 import Business.WorkRequest.FinancialUpdateRequest;
 import java.awt.CardLayout;
 import java.util.List;
@@ -22,7 +23,7 @@ public class AccountantDashboardPanel extends javax.swing.JPanel {
     /**
      * Creates new form AccountantDashboardPanel
      */
-    public AccountantDashboardPanel(JPanel workarea, EcoSystem system) {
+    public AccountantDashboardPanel(JPanel workarea, UserAccount ua, EcoSystem system) {
         this.workarea = workarea;
         this.system   = system;
         initComponents();
