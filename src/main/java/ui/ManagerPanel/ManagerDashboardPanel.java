@@ -4,6 +4,7 @@
  */
 package ui.ManagerPanel;
 import Business.EcoSystem;
+import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
 
@@ -18,7 +19,7 @@ public class ManagerDashboardPanel extends javax.swing.JPanel {
     /**
      * Creates new form ManagerDashboardPanel
      */
-    public ManagerDashboardPanel(JPanel workarea, EcoSystem system) {
+    public ManagerDashboardPanel(JPanel workarea, UserAccount ua, EcoSystem system) {
         this.workarea = workarea;
         this.system   = system;
         initComponents();
