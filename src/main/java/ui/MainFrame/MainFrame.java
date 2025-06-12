@@ -8,13 +8,17 @@ package ui.MainFrame;
 import Business.EcoSystem;
 import Business.Role.Role;
 import Business.UserAccount.UserAccount;
+import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Component;
+import java.awt.Font;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.SwingConstants;
 
 
 /**
@@ -27,23 +31,25 @@ public class MainFrame extends JFrame {
      * Creates new form MsinFrame
      */
     public MainFrame() {
-        initComponents();
-        
-        // Replace default panel with background-enabled panel
-ImageBackgroundPanel bgPanel = new ImageBackgroundPanel("/images/CinmaGif.gif");
+   
+initComponents();
+  ImageBackgroundPanel bgPanel = new ImageBackgroundPanel("/images/cinmaGif.gif");
+    bgPanel.setLayout(new CardLayout());                // ✅ Add CardLayout
+    this.workarea = bgPanel;                            // ✅ update reference so login works
+    jSplitPane1.setRightComponent(workarea);            // ✅ now uses bgPanel
 
-// Copy layout and children from the original panel
-bgPanel.setLayout(workarea.getLayout());
-for (Component c : workarea.getComponents()) {
-    bgPanel.add(c);
-}
+    // style the label (assumes it is defined in .form and added already)
+    lblCinemaAndTheatreManagementSystem.setFont(new Font("Times New Roman", Font.BOLD, 40));
+    lblCinemaAndTheatreManagementSystem.setForeground(Color.YELLOW); // adjust if needed
+       lblCinemaAndTheatreManagementSystem.setBounds(0, 20, workarea.getWidth(), 50); // full width
+    lblCinemaAndTheatreManagementSystem.setHorizontalAlignment(SwingConstants.CENTER);
+    lblCinemaAndTheatreManagementSystem.setOpaque(false); // Transparent background
 
-// Replace the reference
-jSplitPane1.setRightComponent(bgPanel);
-workarea = bgPanel; // Update your variable so future .add(...) still works
-
+    workarea.add(lblCinemaAndTheatreManagementSystem);
+    workarea.setComponentZOrder(lblCinemaAndTheatreManagementSystem, 0); 
     }
-
+    
+ 
     
     private EcoSystem system = new EcoSystem(); 
     /**
@@ -63,7 +69,7 @@ workarea = bgPanel; // Update your variable so future .add(...) still works
         txtPassword = new javax.swing.JTextField();
         btnLogic = new javax.swing.JButton();
         workarea = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        lblCinemaAndTheatreManagementSystem = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -127,11 +133,11 @@ workarea = bgPanel; // Update your variable so future .add(...) still works
 
         workarea.setLayout(new java.awt.CardLayout());
 
-        jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Cinema And Theatre Management System");
-        workarea.add(jLabel1, "card2");
+        lblCinemaAndTheatreManagementSystem.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
+        lblCinemaAndTheatreManagementSystem.setForeground(new java.awt.Color(204, 204, 0));
+        lblCinemaAndTheatreManagementSystem.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblCinemaAndTheatreManagementSystem.setText("Cinema And Theatre Management System");
+        workarea.add(lblCinemaAndTheatreManagementSystem, "card2");
 
         jSplitPane1.setRightComponent(workarea);
 
@@ -155,18 +161,28 @@ workarea = bgPanel; // Update your variable so future .add(...) still works
 
     private void btnLogicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogicActionPerformed
         // TODO add your handling code here:
+        System.out.println("Login button clicked");
+    System.out.println("Login panel visible: " + login.isVisible()); // ✅ here
          String username = txtUsername.getText().trim();
     String password = txtPassword.getText().trim();
-
+    
+     System.out.println("Trying to log in with: " + username + " / " + password);
+     
     UserAccount ua = system.authenticateUser(username, password);
 
-    if (ua != null) {
-        JPanel rolePanel = ua.getRole().createWorkArea(workarea, ua, system);
-        workarea.add("RolePanel", rolePanel);
-        ((CardLayout) workarea.getLayout()).next(workarea);
-    } else {
-        JOptionPane.showMessageDialog(this, "Invalid credentials", "Error", JOptionPane.ERROR_MESSAGE);
-    }
+   if (ua != null) {
+    System.out.println("Login successful. Role: " + ua.getRole().getClass().getSimpleName());
+
+    JPanel rolePanel = ua.getRole().createWorkArea(workarea, ua, system);
+
+    workarea.add("RolePanel", rolePanel);  // 🔄 Add to CardLayout with key
+    ((CardLayout) workarea.getLayout()).show(workarea, "RolePanel");  // ✅ Show that card
+
+} else {
+    System.out.println("Login failed");
+    JOptionPane.showMessageDialog(this, "Invalid credentials", "Error", JOptionPane.ERROR_MESSAGE);
+}
+
     }//GEN-LAST:event_btnLogicActionPerformed
 
     /**
@@ -211,8 +227,8 @@ workarea = bgPanel; // Update your variable so future .add(...) still works
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogic;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JSplitPane jSplitPane1;
+    private javax.swing.JLabel lblCinemaAndTheatreManagementSystem;
     private javax.swing.JLabel lblPassword;
     private javax.swing.JLabel lblUsername;
     private javax.swing.JPanel login;
