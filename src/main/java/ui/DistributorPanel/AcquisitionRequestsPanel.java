@@ -9,21 +9,31 @@ import Business.WorkRequest.DistributionAssignmentRequest;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
 import Business.WorkRequest.MovieAcquisitionRequest;
+import java.awt.Color;
 import java.awt.Component;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JOptionPane;
+import ui.GradientPanel;
 
 /**
  *
  * @author ushakeshravya
  */
-public class AcquisitionRequestsPanel extends javax.swing.JPanel {
+public class AcquisitionRequestsPanel extends GradientPanel {
      private final JPanel workarea;
      private final EcoSystem system;
     /**
      * Creates new form AcquisitionRequestsPanel
      */
     public AcquisitionRequestsPanel(JPanel workarea, EcoSystem system) {
+         super(
+            new Color[] {
+                new Color(192, 192, 192),   // Silver
+                new Color(255, 215, 0),     // Light Gold
+                new Color(218, 165, 32)     // Rich Gold
+            },
+            new float[] { 0f, 0.5f, 1f }
+        );
         this.workarea = workarea;
         this.system   = system;
         initComponents();
