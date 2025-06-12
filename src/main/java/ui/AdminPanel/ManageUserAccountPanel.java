@@ -7,6 +7,7 @@ package ui.AdminPanel;
 import Business.EcoSystem;
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
+import java.awt.Color;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
@@ -16,7 +17,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author ushakeshravya
  */
-public class ManageUserAccountPanel extends javax.swing.JPanel {
+public class ManageUserAccountPanel extends ui.GradientPanel {
 
     private final JPanel workarea;
     private final EcoSystem system;
@@ -26,9 +27,17 @@ public class ManageUserAccountPanel extends javax.swing.JPanel {
      * Creates new form ManageUserAccountPanel
      */
     public ManageUserAccountPanel(JPanel workarea, EcoSystem system) {
-        this.workarea = workarea;
-        this.system = system;
-        initComponents();
+super(  // 👇 Gradient: Red → Black → Silver
+            new Color[] {
+                new Color(139, 0, 0),
+                new Color(30, 30, 30),
+                new Color(192, 192, 192)
+            },
+            new float[] { 0f, 0.5f, 1f }
+        );
+    this.workarea = workarea;
+    this.system = system;
+    initComponents();
         populateTable();
     }
     
