@@ -5,26 +5,41 @@
 package ui.ProducerPanel;
 
 import Business.EcoSystem;
+import Business.UserAccount.UserAccount;
 import Business.WorkRequest.MovieAcquisitionRequest;
 import java.awt.CardLayout;
+import java.awt.Color;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+import ui.GradientPanel;
+
 
 /**
  *
  * @author ushakeshravya
  */
-public class ProducerDashboardPanel extends javax.swing.JPanel {
-    private final JPanel workarea;
-    private final EcoSystem system;
+public class ProducerDashboardPanel extends ui.GradientPanel {
+    private final JPanel workarea ;
+    private final EcoSystem system ;
 
 
     /**
      * Creates new form ProducerWorkAreaPanel
      */
-    public ProducerDashboardPanel(JPanel workarea, EcoSystem system) {
+    public ProducerDashboardPanel(JPanel workarea, UserAccount account, EcoSystem system) {
+         super(
+        new Color[] {
+            new Color(139, 0, 0),     // red
+            new Color(30, 30, 30),    // black
+            new Color(192, 192, 192)  // silver
+        },
+        new float[] { 0f, 0.5f, 1f }
+    );
+         
+         // ✅ Then initialize your variables
         this.workarea = workarea;
-        this.system   = system;
+        this.system = system;
+        
         initComponents();
         populateTable();
         
