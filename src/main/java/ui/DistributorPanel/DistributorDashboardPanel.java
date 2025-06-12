@@ -6,14 +6,17 @@ package ui.DistributorPanel;
 
 
 import Business.EcoSystem;
+import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
+import java.awt.Color;
 import javax.swing.JPanel;
+import ui.GradientPanel;
 
 /**
  *
  * @author ushakeshravya
  */
-public class DistributorDashboardPanel extends javax.swing.JPanel {
+public class DistributorDashboardPanel extends GradientPanel {
     
      private final JPanel workarea;
     private final EcoSystem system;
@@ -21,7 +24,16 @@ public class DistributorDashboardPanel extends javax.swing.JPanel {
     /**
      * Creates new form DistributorDashboardPanel
      */
-    public DistributorDashboardPanel(JPanel workarea, EcoSystem system) {
+    public DistributorDashboardPanel(JPanel workarea, UserAccount ua, EcoSystem system) {
+        super(
+            new Color[] {
+                new Color(192, 192, 192),   // Silver
+                new Color(255, 215, 0),     // Light Gold
+                new Color(218, 165, 32)     // Rich Gold
+            },
+            new float[] { 0f, 0.5f, 1f }
+        );
+
         this.workarea = workarea;
         this.system   = system;
         initComponents();
