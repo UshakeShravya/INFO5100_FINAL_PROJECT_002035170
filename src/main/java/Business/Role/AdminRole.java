@@ -16,7 +16,7 @@ import ui.AdminPanel.AdminDashboardPanel;
 public class AdminRole extends Role {
      @Override
     public JPanel createWorkArea(JPanel workarea, UserAccount account, EcoSystem system) {
-        return new AdminDashboardPanel(workarea, system); // match your constructor
+        return new AdminDashboardPanel(workarea, account, system); // match your constructor
     }
     
 }
