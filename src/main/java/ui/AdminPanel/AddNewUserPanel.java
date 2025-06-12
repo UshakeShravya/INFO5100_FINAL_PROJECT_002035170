@@ -22,12 +22,14 @@ import Business.Role.AccountantRole;
 import Business.UserAccount.UserAccount;
 import Business.EcoSystem;
 import Business.Role.Role;
+import java.awt.Color;
+import ui.GradientPanel;
 
 /**
  *
  * @author ushakeshravya
  */
-public class AddNewUserPanel extends javax.swing.JPanel {
+public class AddNewUserPanel extends ui.GradientPanel {
 
     private final JPanel workarea;
     private final EcoSystem system;
@@ -36,9 +38,17 @@ public class AddNewUserPanel extends javax.swing.JPanel {
      * Creates new form AddNewUserPanel
      */
     public AddNewUserPanel(JPanel workarea, EcoSystem system) {
-        this.workarea = workarea;
-        this.system = system;
-        initComponents();
+        super(  // 👇 Gradient: Red → Black → Silver
+            new Color[] {
+                new Color(139, 0, 0),
+                new Color(30, 30, 30),
+                new Color(192, 192, 192)
+            },
+            new float[] { 0f, 0.5f, 1f }
+        );
+    this.workarea = workarea;
+    this.system = system;
+    initComponents();
         
          populateOrganizations();
     populateRoles();
