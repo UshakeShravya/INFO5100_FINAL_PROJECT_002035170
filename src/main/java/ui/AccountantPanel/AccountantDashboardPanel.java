@@ -8,22 +8,32 @@ import Business.EcoSystem;
 import Business.UserAccount.UserAccount;
 import Business.WorkRequest.FinancialUpdateRequest;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+import ui.GradientPanel;
 
 /**
  *
  * @author ushakeshravya
  */
-public class AccountantDashboardPanel extends javax.swing.JPanel {
+public class AccountantDashboardPanel extends GradientPanel {
      private final JPanel workarea;
     private final EcoSystem system;
     /**
      * Creates new form AccountantDashboardPanel
      */
     public AccountantDashboardPanel(JPanel workarea, UserAccount ua, EcoSystem system) {
+        super(
+            new Color[] {
+                new Color(173, 216, 230),  // Light Sky Blue
+                new Color(245, 245, 245),  // Powder White
+                new Color(152, 251, 152)   // Mint Green
+            },
+            new float[] { 0f, 0.5f, 1f }
+        );
         this.workarea = workarea;
         this.system   = system;
         initComponents();
