@@ -11,17 +11,19 @@ import Business.WorkRequest.TicketingRequest;
 import Utils.EmailNotificationService;
 import jakarta.mail.MessagingException;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+import ui.GradientPanel;
 
 
 /**
  *
  * @author ushakeshravya
  */
-public class BookingRequestsPanel extends javax.swing.JPanel {
+public class BookingRequestsPanel extends GradientPanel {
     private final JPanel workarea;
     private final EcoSystem system;
     private final UserAccount user;
@@ -30,7 +32,15 @@ public class BookingRequestsPanel extends javax.swing.JPanel {
      * Creates new form BookingRequestsPanel
      */
     public BookingRequestsPanel(JPanel workarea, EcoSystem system, UserAccount user) {
-         this.workarea = workarea;
+         super(
+            new Color[] {
+                new Color(192, 192, 192),  // Silver
+                new Color(64, 64, 64),     // Charcoal
+                new Color(0, 255, 255)     // Neon Cyan
+            },
+            new float[] { 0f, 0.5f, 1f }
+        ); 
+        this.workarea = workarea;
         this.system   = system;
         this.user     = user;
         initComponents();
