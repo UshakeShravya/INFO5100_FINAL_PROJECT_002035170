@@ -4,16 +4,19 @@
  */
 package ui.ManagerPanel;
 import Business.EcoSystem;
+import Business.UserAccount.UserAccount;
 import Business.WorkRequest.TicketingRequest;
 import java.awt.CardLayout;
+import java.awt.Color;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import ui.GradientPanel;
 
 /**
  *
  * @author ushakeshravya
  */
-public class TicketingRequestPanel extends javax.swing.JPanel {
+public class TicketingRequestPanel extends GradientPanel {
     private final JPanel workarea;
     private final EcoSystem system;
 
@@ -22,6 +25,14 @@ public class TicketingRequestPanel extends javax.swing.JPanel {
      * Creates new form TicketingRequestPanel
      */
     public TicketingRequestPanel(JPanel workarea, EcoSystem system) {
+        super(
+            new Color[] {
+                new Color(70, 130, 180),     // Steel Blue
+                new Color(176, 196, 222),    // Light Steel Blue
+                new Color(192, 192, 192)     // Silver
+            },
+            new float[] { 0f, 0.5f, 1f }
+        );
         this.workarea = workarea;
         this.system   = system;
         initComponents();
