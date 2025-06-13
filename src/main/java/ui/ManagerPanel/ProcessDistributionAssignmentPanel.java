@@ -10,15 +10,17 @@ import Business.UserAccount.UserAccount;
 import Business.WorkRequest.DistributionAssignmentRequest;
 import Business.WorkRequest.StaffAssignmentRequest;
 import java.awt.CardLayout;
+import java.awt.Color;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+import ui.GradientPanel;
 
 /**
  *
  * @author ushakeshravya
  */
-public class ProcessDistributionAssignmentPanel extends javax.swing.JPanel {
+public class ProcessDistributionAssignmentPanel extends GradientPanel {
      private final JPanel workarea;
     private final EcoSystem system;
 
@@ -26,6 +28,14 @@ public class ProcessDistributionAssignmentPanel extends javax.swing.JPanel {
      * Creates new form ProcessDistributionAssignmentPanel
      */
     public ProcessDistributionAssignmentPanel(JPanel workarea, EcoSystem system) {
+        super(
+            new Color[] {
+                new Color(70, 130, 180),     // Steel Blue
+                new Color(176, 196, 222),    // Light Steel Blue
+                new Color(192, 192, 192)     // Silver
+            },
+            new float[] { 0f, 0.5f, 1f }
+        );
         this.workarea = workarea;
         this.system   = system;
         initComponents();
