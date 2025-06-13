@@ -8,17 +8,19 @@ import Business.EcoSystem;
 import Business.UserAccount.UserAccount;
 import Business.WorkRequest.TicketBookingRequest;
 import java.awt.CardLayout;
+import java.awt.Color;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
+import ui.GradientPanel;
 
 /**
  *
  * @author ushakeshravya
  */
-public class CustomerDashboardPanel extends javax.swing.JPanel {
+public class CustomerDashboardPanel extends GradientPanel {
     private final JPanel workarea;
     private final EcoSystem system;
     private final UserAccount user;
@@ -28,6 +30,14 @@ public class CustomerDashboardPanel extends javax.swing.JPanel {
      * Creates new form CustomerDashboardPanel
      */
     public CustomerDashboardPanel(JPanel workarea, EcoSystem system, UserAccount user) {
+         super(
+            new Color[] {
+                new Color(221, 160, 221),   // Soft Lavender
+                new Color(230, 230, 250),   // Lavender
+                new Color(216, 191, 216)    // Thistle
+            },
+            new float[] { 0f, 0.5f, 1f }
+        );
         this.workarea = workarea;
         this.system   = system;
        this.user     = user;
