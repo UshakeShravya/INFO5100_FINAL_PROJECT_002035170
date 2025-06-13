@@ -8,15 +8,17 @@ import Business.EcoSystem;
 import Business.UserAccount.UserAccount;
 import Business.WorkRequest.StaffAssignmentRequest;
 import java.awt.CardLayout;
+import java.awt.Color;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+import ui.GradientPanel;
 
 /**
  *
  * @author ushakeshravya
  */
-public class ConcessionStaffDashboardPanel extends javax.swing.JPanel {
+public class ConcessionStaffDashboardPanel extends GradientPanel {
     private final JPanel workarea;
     private final EcoSystem system;
     private final UserAccount user;
@@ -25,6 +27,14 @@ public class ConcessionStaffDashboardPanel extends javax.swing.JPanel {
      * Creates new form ConcessionStaffDashboardPanel
      */
     public ConcessionStaffDashboardPanel(JPanel workarea, EcoSystem system, UserAccount user) {
+         super(
+            new Color[] {
+                new Color(255, 223, 186),   // Light Caramel
+                new Color(255, 193, 112),   // Popcorn Gold
+                new Color(150, 75, 0)       // Chocolate Brown
+            },
+            new float[] { 0f, 0.5f, 1f }
+        );
         this.workarea = workarea;
         this.system   = system;
         this.user     = user;
