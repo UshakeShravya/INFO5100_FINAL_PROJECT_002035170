@@ -8,15 +8,17 @@ import Business.EcoSystem;
 import Business.UserAccount.UserAccount;
 import Business.WorkRequest.StaffAssignmentRequest;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+import ui.GradientPanel;
 /**
  *
  * @author ushakeshravya
  */
-public class TechnicianDashboardPanel extends javax.swing.JPanel {
+public class TechnicianDashboardPanel extends GradientPanel {
     private final JPanel workarea;
     private final EcoSystem system;
     private final UserAccount user;
@@ -25,6 +27,14 @@ public class TechnicianDashboardPanel extends javax.swing.JPanel {
      * Creates new form TechnicianDashboardPanel
      */
     public TechnicianDashboardPanel(JPanel workarea, EcoSystem system, UserAccount user) {
+        super(
+            new Color[] {
+                new Color(64, 224, 208),    // Turquoise
+                new Color(175, 238, 238),   // Pale Turquoise
+                new Color(72, 209, 204)     // Medium Turquoise
+            },
+            new float[] { 0f, 0.5f, 1f }
+        );
         this.workarea = workarea;
         this.system   = system;
         this.user     = user;
