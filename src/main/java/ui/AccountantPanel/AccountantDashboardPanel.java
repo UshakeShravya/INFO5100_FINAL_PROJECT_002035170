@@ -41,7 +41,7 @@ public class AccountantDashboardPanel extends GradientPanel {
 
     }
     
-    private void populateTable() {
+    public void populateTable() {
         DefaultTableModel model = (DefaultTableModel)tblFinancial.getModel();
         model.setRowCount(0);
 
