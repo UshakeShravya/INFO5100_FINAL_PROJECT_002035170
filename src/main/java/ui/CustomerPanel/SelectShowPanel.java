@@ -18,7 +18,7 @@ import ui.GradientPanel;
  *
  * @author ushakeshravya
  */
-public class TicketBookingRequestPanel extends GradientPanel {
+public class SelectShowPanel extends GradientPanel {
     
     private final UserAccount user;
     private final JPanel workarea;
@@ -28,7 +28,7 @@ public class TicketBookingRequestPanel extends GradientPanel {
     /**
      * Creates new form TicketBookingRequestPanel
      */
-    public TicketBookingRequestPanel(JPanel workarea, EcoSystem system, UserAccount user, String customerEmail) {
+    public SelectShowPanel(JPanel workarea, EcoSystem system, UserAccount user, String customerEmail) {
         super(
             new Color[] {
                 new Color(221, 160, 221),   // Soft Lavender
@@ -43,7 +43,7 @@ public class TicketBookingRequestPanel extends GradientPanel {
     this.customerEmail = customerEmail;     // store it
         initComponents();
          loadShows();
-    loadSeats();
+    
     }
     
     private void loadShows() {
@@ -53,10 +53,7 @@ public class TicketBookingRequestPanel extends GradientPanel {
     cmbShow.addItem("Inception - 9:30 PM");
     // …etc
 }
-private void loadSeats() {
-    cmbSeats.removeAllItems();
-    for(int i=1;i<=10;i++) cmbSeats.addItem(String.valueOf(i));
-}
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -67,17 +64,15 @@ private void loadSeats() {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lblNewTicketBooking = new javax.swing.JLabel();
+        lblSelectShow = new javax.swing.JLabel();
         lblShow = new javax.swing.JLabel();
         cmbShow = new javax.swing.JComboBox<>();
-        lblSeats = new javax.swing.JLabel();
-        cmbSeats = new javax.swing.JComboBox<>();
-        btnSubmitBooking = new javax.swing.JButton();
+        btnContinuetoSeatSelection = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
 
-        lblNewTicketBooking.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
-        lblNewTicketBooking.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblNewTicketBooking.setText("New Ticket Booking   ");
+        lblSelectShow.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
+        lblSelectShow.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblSelectShow.setText("Select Show");
 
         lblShow.setText("Show :");
 
@@ -88,19 +83,10 @@ private void loadSeats() {
             }
         });
 
-        lblSeats.setText("Seats :");
-
-        cmbSeats.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cmbSeats.addActionListener(new java.awt.event.ActionListener() {
+        btnContinuetoSeatSelection.setText("Continue to Seat Selection");
+        btnContinuetoSeatSelection.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbSeatsActionPerformed(evt);
-            }
-        });
-
-        btnSubmitBooking.setText("Submit Booking");
-        btnSubmitBooking.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSubmitBookingActionPerformed(evt);
+                btnContinuetoSeatSelectionActionPerformed(evt);
             }
         });
 
@@ -116,22 +102,20 @@ private void loadSeats() {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(80, 80, 80)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblShow)
-                    .addComponent(lblSeats))
-                .addGap(55, 55, 55)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnSubmitBooking)
-                    .addComponent(cmbSeats, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cmbShow, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(btnBack)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
-                .addComponent(lblNewTicketBooking)
-                .addGap(146, 146, 146))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnContinuetoSeatSelection)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(80, 80, 80)
+                            .addComponent(lblShow)
+                            .addGap(56, 56, 56)
+                            .addComponent(cmbShow, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(29, 29, 29)
+                            .addComponent(btnBack)
+                            .addGap(114, 114, 114)
+                            .addComponent(lblSelectShow))))
+                .addContainerGap(170, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -139,7 +123,7 @@ private void loadSeats() {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(38, 38, 38)
-                        .addComponent(lblNewTicketBooking))
+                        .addComponent(lblSelectShow))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(27, 27, 27)
                         .addComponent(btnBack)))
@@ -147,47 +131,29 @@ private void loadSeats() {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblShow)
                     .addComponent(cmbShow, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(55, 55, 55)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblSeats)
-                    .addComponent(cmbSeats, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(98, 98, 98)
-                .addComponent(btnSubmitBooking)
-                .addContainerGap(125, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 177, Short.MAX_VALUE)
+                .addComponent(btnContinuetoSeatSelection)
+                .addGap(124, 124, 124))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnSubmitBookingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitBookingActionPerformed
+    private void btnContinuetoSeatSelectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContinuetoSeatSelectionActionPerformed
         // TODO add your handling code here:
-         String show = (String)cmbShow.getSelectedItem();
-    int seats = Integer.parseInt((String)cmbSeats.getSelectedItem());
-    if(show==null || seats<=0) {
-       JOptionPane.showMessageDialog(this,"Select show & seats","Error",JOptionPane.ERROR_MESSAGE);
-       return;
-    }
-    TicketBookingRequest req = new TicketBookingRequest(show, seats, user.getUsername(), customerEmail);
-    system.addTicketBookingRequest(req);
-    JOptionPane.showMessageDialog(this,"Booking submitted","Success",JOptionPane.INFORMATION_MESSAGE);
+       String showStr = (String) cmbShow.getSelectedItem();
+if (showStr == null) {
+    JOptionPane.showMessageDialog(this, "Please select a show", "Error", JOptionPane.ERROR_MESSAGE);
+    return;
+}
+        // Navigate to seat selection screen
+    SeatSelectionPanel seatPanel = new SeatSelectionPanel(workarea, system, user, showStr, customerEmail);
+    workarea.add("SeatSelectionPanel", seatPanel);
+    ((CardLayout) workarea.getLayout()).next(workarea);
 
-    // go back and refresh
-    workarea.remove(this);
-    CardLayout layout = (CardLayout)workarea.getLayout();
-    layout.previous(workarea);
-    Component[] comps = workarea.getComponents();
-    // find dashboard:
-    Component last = comps[comps.length-1];
-    if(last instanceof CustomerDashboardPanel) {
-      ((CustomerDashboardPanel)last).populateTable();
-    }
-    }//GEN-LAST:event_btnSubmitBookingActionPerformed
+    }//GEN-LAST:event_btnContinuetoSeatSelectionActionPerformed
 
     private void cmbShowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbShowActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbShowActionPerformed
-
-    private void cmbSeatsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbSeatsActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmbSeatsActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
@@ -198,11 +164,9 @@ private void loadSeats() {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
-    private javax.swing.JButton btnSubmitBooking;
-    private javax.swing.JComboBox<String> cmbSeats;
+    private javax.swing.JButton btnContinuetoSeatSelection;
     private javax.swing.JComboBox<String> cmbShow;
-    private javax.swing.JLabel lblNewTicketBooking;
-    private javax.swing.JLabel lblSeats;
+    private javax.swing.JLabel lblSelectShow;
     private javax.swing.JLabel lblShow;
     // End of variables declaration//GEN-END:variables
 }
