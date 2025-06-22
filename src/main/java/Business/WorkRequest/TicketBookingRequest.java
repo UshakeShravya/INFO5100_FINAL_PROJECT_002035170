@@ -10,27 +10,28 @@ package Business.WorkRequest;
  */
 public class TicketBookingRequest {
     private String showName;
-    private int seats;
+    private String seats;
     private String customer;      // username who booked
     private String customerEmail;   // ← new
     private String status = "Pending";
 
-    public TicketBookingRequest(String showName, int seats, String customer, String customerEmail) {
+    public TicketBookingRequest(String showName, String seats, String username, String email) {
         this.showName = showName;
-        this.seats     = seats;
-        this.customer  = customer;
-        this.customerEmail    = customerEmail;
-        this.status   = "Pending";
+        this.seats = seats;
+        this.customer = username;
+       this.customerEmail = email;
+
+        this.status = "Booked";
     }
     // Getters / setters...
     public String getShowName() { return showName; }
-    public int getSeats()       { return seats; }
+    public String getSeats()       { return seats; }
     public String getCustomer(){ return customer; }
     public String getStatus()  { return status; }
     public void setStatus(String status) { status = status; }
     
     public void setShowName(String showName) { this.showName = showName; }
-    public void setSeats(int seats)          { this.seats    = seats;    }
+    public void setSeats(String seats)          { this.seats    = seats;    }
     public void setCustomer(String customer) { this.customer = customer; }
     
     // ← new getter/setter for the email:
