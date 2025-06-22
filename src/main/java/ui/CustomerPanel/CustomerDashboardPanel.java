@@ -194,10 +194,10 @@ public class CustomerDashboardPanel extends GradientPanel {
         );
         return;
     }
-    // ...then hand off to TicketBookingRequestPanel, including email:
+    // ...then hand off to SelectShowPanel, including email:
     String customerEmail = txtEmailId.getText().trim();
-         TicketBookingRequestPanel panel =
-        new TicketBookingRequestPanel(workarea, system, user, customerEmail);
+         SelectShowPanel panel =
+        new SelectShowPanel(workarea, system, user, customerEmail);
     workarea.add("TicketBooking", panel);
     ((CardLayout)workarea.getLayout()).next(workarea);
     }//GEN-LAST:event_btnBookTicketActionPerformed
