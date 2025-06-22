@@ -12,11 +12,13 @@ import Utils.EmailNotificationService;
 import jakarta.mail.MessagingException;
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import ui.GradientPanel;
+import ui.AccountantPanel.AccountantDashboardPanel;
 
 
 /**
@@ -169,6 +171,7 @@ public class BookingRequestsPanel extends GradientPanel {
 
     private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
         // TODO add your handling code here:
+        // TODO add your handling code here:
         int row = tblBookingRequests.getSelectedRow();
         if (row < 0) {
             JOptionPane.showMessageDialog(this, "Select a row first.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -176,7 +179,8 @@ public class BookingRequestsPanel extends GradientPanel {
         }
 
         TicketBookingRequest r = system.getTicketBookingRequests().get(row);
-        if (!r.getStatus().equals("Pending")) {
+        if (r.getStatus().equals("Confirmed") || r.getStatus().equals("Rejected")) {
+
             JOptionPane.showMessageDialog(this, "Already processed.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
@@ -189,7 +193,7 @@ public class BookingRequestsPanel extends GradientPanel {
         String customer    = r.getCustomer();
         String movieTitle  = r.getShowName();
         String showTime    = "";               // optional: split movieTitle if you want
-        int seats          = r.getSeats();
+        int seats = r.getSeats().split(",").length;
         
         TicketingRequest tReq = new TicketingRequest(
              customer,    // customerName
@@ -198,6 +202,13 @@ public class BookingRequestsPanel extends GradientPanel {
     seats 
         );
         system.addTicketingRequest(tReq);
+        // Refresh AccountantDashboardPanel if it's in memory
+        for (Component comp : workarea.getComponents()) {
+    if (comp instanceof ui.AccountantPanel.AccountantDashboardPanel) {
+        ((AccountantDashboardPanel) comp).populateTable();
+
+    }
+}
         
         // 3) Send a confirmation email to the single address that the customer entered:
     String toEmail = r.getCustomerEmail(); 
@@ -207,7 +218,7 @@ public class BookingRequestsPanel extends GradientPanel {
                 toEmail,
                 r.getCustomer(),   // the customer’s username
                 r.getShowName(),
-                r.getSeats()
+                seats
             );
         } catch (MessagingException ex) {
             JOptionPane.showMessageDialog(
@@ -221,7 +232,10 @@ public class BookingRequestsPanel extends GradientPanel {
 
         JOptionPane.showMessageDialog(this, "Booking confirmed and sent to Ticketing queue.", 
                                       "Success", JOptionPane.INFORMATION_MESSAGE);
+    
+
         populateTable();
+    
     }//GEN-LAST:event_btnConfirmActionPerformed
 
     private void btnRejectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRejectActionPerformed
