@@ -6,6 +6,10 @@ package Business.UserAccount;
 
 import Business.Organization.Organization;
 import Business.Role.Role;
+import Business.CartItem;
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  *
@@ -19,6 +23,7 @@ public class UserAccount {
     private Role role;
     private String organization;
     private String name;
+    private List<CartItem> cart = new ArrayList<>();
 
     public UserAccount(String username, String password, Role role, String organization, String name) {
         this.username = username;
@@ -28,12 +33,22 @@ public class UserAccount {
         this.name = name;
     }
 
-    public String getUsername() { return username; }
+    public String getusername() { return username; }
     public String getPassword() { return password; }
     public Role getRole() { return role; }
     public String getOrganization() { return organization; }
     public String getName() { return name; }
-  
+    public List<CartItem> getCart() {
+        return cart;
+    }
+
+    public void setCart(List<CartItem> cart) {
+        this.cart = cart;
+    }
+    
+    public void setusername(String username) {
+    this.username = username;
+}
 
 }
 
