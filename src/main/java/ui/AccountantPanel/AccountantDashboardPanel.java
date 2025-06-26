@@ -70,6 +70,7 @@ public class AccountantDashboardPanel extends GradientPanel {
         tblFinancial = new javax.swing.JTable();
         btnRecordPayment = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
+        btnViewRevenueReport = new javax.swing.JButton();
 
         lblAccountantDashboard.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
         lblAccountantDashboard.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -114,6 +115,13 @@ public class AccountantDashboardPanel extends GradientPanel {
             }
         });
 
+        btnViewRevenueReport.setText("View Revenue Report");
+        btnViewRevenueReport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewRevenueReportActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -133,7 +141,10 @@ public class AccountantDashboardPanel extends GradientPanel {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(204, 204, 204)
-                        .addComponent(btnRecordPayment)))
+                        .addComponent(btnRecordPayment))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(183, 183, 183)
+                        .addComponent(btnViewRevenueReport, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(48, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -147,9 +158,11 @@ public class AccountantDashboardPanel extends GradientPanel {
                 .addComponent(lblFinancialUpdateRequests)
                 .addGap(56, 56, 56)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(93, 93, 93)
+                .addGap(42, 42, 42)
                 .addComponent(btnRecordPayment)
-                .addContainerGap(116, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                .addComponent(btnViewRevenueReport, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(42, 42, 42))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -176,10 +189,19 @@ public class AccountantDashboardPanel extends GradientPanel {
         ((CardLayout)workarea.getLayout()).previous(workarea);
     }//GEN-LAST:event_btnBackActionPerformed
 
+    private void btnViewRevenueReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewRevenueReportActionPerformed
+        // TODO add your handling code here:
+        RevenueReportPanel panel = new RevenueReportPanel(workarea, system);
+        workarea.add("RevenueReportPanel", panel);
+        ((CardLayout) workarea.getLayout()).next(workarea);
+
+    }//GEN-LAST:event_btnViewRevenueReportActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnRecordPayment;
+    private javax.swing.JButton btnViewRevenueReport;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblAccountantDashboard;
     private javax.swing.JLabel lblFinancialUpdateRequests;
