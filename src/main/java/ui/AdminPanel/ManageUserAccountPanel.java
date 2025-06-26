@@ -47,7 +47,7 @@ super(  // 👇 Gradient: Red → Black → Silver
 
     for (UserAccount ua : system.getUserAccountDirectory().getUserList()) {
         Object[] row = new Object[3];
-        row[0] = ua.getUsername();
+        row[0] = ua.getusername();
         row[1] = ua.getRole(); // Use correct getter
         row[2] = ua.getOrganization(); // Use correct getter
         model.addRow(row);
@@ -168,7 +168,7 @@ super(  // 👇 Gradient: Red → Black → Silver
     // Find the matching UserAccount object:
     UserAccount toRemove = null;
     for (UserAccount ua : system.getUserAccountDirectory().getUserList()) {
-        if (ua.getUsername().equals(username)) {
+        if (ua.getusername().equals(username)) {
             toRemove = ua;
             break;
         }
