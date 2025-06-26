@@ -24,6 +24,10 @@ public class TicketingRequest {
         this.numTickets = n;
     }
     
+    public TicketingRequest() {
+    super(); // If WorkRequest is the parent
+}
+
     public String getCustomerName() {
         return customerName;
     }
