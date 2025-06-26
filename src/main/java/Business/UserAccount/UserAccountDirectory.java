@@ -34,7 +34,7 @@ public class UserAccountDirectory {
 
     public UserAccount authenticateUser(String username, String password) {
         for (UserAccount ua : userList) {
-            if (ua.getUsername().equals(username) && ua.getPassword().equals(password)) {
+            if (ua.getusername().equals(username) && ua.getPassword().equals(password)) {
                 return ua;
             }
         }
