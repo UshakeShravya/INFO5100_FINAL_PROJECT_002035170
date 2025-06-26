@@ -47,7 +47,7 @@ public class TechnicianDashboardPanel extends GradientPanel {
         model.setRowCount(0);
         for (StaffAssignmentRequest r : system.getStaffAssignmentRequests()) {
             if ("Technician".equals(user.getRole().toString())
-             && user.getUsername().equals(r.getAssignedStaff())
+             && user.getusername().equals(r.getAssignedStaff())
              && !"Completed".equals(r.getStatus())) {
                 model.addRow(new Object[]{
                     r.getMovieTitle(),
@@ -160,7 +160,7 @@ public class TechnicianDashboardPanel extends GradientPanel {
         String title = (String)tblTechnicianDashboard.getValueAt(row, 0);
         for (StaffAssignmentRequest r : system.getStaffAssignmentRequests()) {
             if (r.getMovieTitle().equals(title)
-             && r.getAssignedStaff().equals(user.getUsername())) {
+             && r.getAssignedStaff().equals(user.getusername())) {
                 r.setStatus("Completed");
                 break;
             }
