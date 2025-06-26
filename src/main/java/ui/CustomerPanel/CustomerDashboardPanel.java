@@ -49,7 +49,7 @@ public class CustomerDashboardPanel extends GradientPanel {
     DefaultTableModel m = (DefaultTableModel) tblBookingReq.getModel();
     m.setRowCount(0);
     for (TicketBookingRequest r : system.getTicketBookingRequests()) {
-        if (r.getCustomer().equals(user.getUsername())) {
+        if (r.getCustomer().equals(user.getusername())) {
             m.addRow(new Object[]{
                 r.getShowName(),
                 r.getSeats(),
@@ -76,6 +76,7 @@ public class CustomerDashboardPanel extends GradientPanel {
         btnBack = new javax.swing.JButton();
         lblEmailId = new javax.swing.JLabel();
         txtEmailId = new javax.swing.JTextField();
+        btnOrderFood = new javax.swing.JButton();
 
         lblCustomerDashboard.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
         lblCustomerDashboard.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -129,6 +130,13 @@ public class CustomerDashboardPanel extends GradientPanel {
             }
         });
 
+        btnOrderFood.setText("Order Food");
+        btnOrderFood.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOrderFoodActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -156,7 +164,10 @@ public class CustomerDashboardPanel extends GradientPanel {
                         .addComponent(txtEmailId, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(231, 231, 231)
-                        .addComponent(btnBookTicket)))
+                        .addComponent(btnBookTicket))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(188, 188, 188)
+                        .addComponent(btnOrderFood, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(62, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -179,7 +190,9 @@ public class CustomerDashboardPanel extends GradientPanel {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(46, 46, 46)
                 .addComponent(btnBookTicket)
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
+                .addComponent(btnOrderFood, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(42, 42, 42))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -212,10 +225,18 @@ public class CustomerDashboardPanel extends GradientPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtEmailIdActionPerformed
 
+    private void btnOrderFoodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrderFoodActionPerformed
+        // TODO add your handling code here:
+        CustomerFoodOrderPanel panel = new CustomerFoodOrderPanel(workarea, system, user);
+        workarea.add("OrderFood", panel);
+        ((CardLayout)workarea.getLayout()).next(workarea);
+    }//GEN-LAST:event_btnOrderFoodActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnBookTicket;
+    private javax.swing.JButton btnOrderFood;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblCustomerDashboard;
     private javax.swing.JLabel lblEmailId;
