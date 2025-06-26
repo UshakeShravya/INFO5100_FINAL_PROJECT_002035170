@@ -48,7 +48,7 @@ public class ConcessionStaffDashboardPanel extends GradientPanel {
         model.setRowCount(0);
         for (StaffAssignmentRequest r : system.getStaffAssignmentRequests()) {
             if ("Concession Staff".equals(user.getRole().toString())
-             && user.getUsername().equals(r.getAssignedStaff())
+             && user.getusername().equals(r.getAssignedStaff())
              && !"Completed".equals(r.getStatus())) {
                 model.addRow(new Object[]{
                     r.getMovieTitle(),
@@ -73,6 +73,7 @@ public class ConcessionStaffDashboardPanel extends GradientPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblConcessionStaff = new javax.swing.JTable();
         btnComplete = new javax.swing.JButton();
+        btnViewFoodOrders = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -118,6 +119,13 @@ public class ConcessionStaffDashboardPanel extends GradientPanel {
             }
         });
 
+        btnViewFoodOrders.setText("View Food Orders");
+        btnViewFoodOrders.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewFoodOrdersActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -135,7 +143,10 @@ public class ConcessionStaffDashboardPanel extends GradientPanel {
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(183, 183, 183)
-                        .addComponent(btnComplete)))
+                        .addComponent(btnComplete))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(151, 151, 151)
+                        .addComponent(btnViewFoodOrders, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -147,9 +158,11 @@ public class ConcessionStaffDashboardPanel extends GradientPanel {
                     .addComponent(btnBack))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(85, 85, 85)
+                .addGap(49, 49, 49)
                 .addComponent(btnComplete)
-                .addContainerGap(103, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                .addComponent(btnViewFoodOrders, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(38, 38, 38))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -163,7 +176,7 @@ public class ConcessionStaffDashboardPanel extends GradientPanel {
         String title = (String)tblConcessionStaff.getValueAt(row, 0);
         for (StaffAssignmentRequest r : system.getStaffAssignmentRequests() ) {
             if (r.getMovieTitle().equals(title)
-             && r.getAssignedStaff().equals(user.getUsername())) {
+             && r.getAssignedStaff().equals(user.getusername())) {
                 r.setStatus("Completed");
                 break;
             }
@@ -178,10 +191,18 @@ public class ConcessionStaffDashboardPanel extends GradientPanel {
         ((CardLayout)workarea.getLayout()).previous(workarea);
     }//GEN-LAST:event_btnBackActionPerformed
 
+    private void btnViewFoodOrdersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewFoodOrdersActionPerformed
+        // TODO add your handling code here:
+        ViewFoodRequestsPanel viewPanel = new ViewFoodRequestsPanel(workarea, system, user);
+        workarea.add("ViewFoodRequestsPanel", viewPanel);
+        ((CardLayout) workarea.getLayout()).next(workarea);
+    }//GEN-LAST:event_btnViewFoodOrdersActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnComplete;
+    private javax.swing.JButton btnViewFoodOrders;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblConcessionStaff;
