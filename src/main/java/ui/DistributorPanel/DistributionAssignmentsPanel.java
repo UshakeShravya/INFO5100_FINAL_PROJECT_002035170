@@ -59,7 +59,7 @@ public class DistributionAssignmentsPanel extends GradientPanel{
         // assume system.getUserAccountDirectory().getUserList() returns all users
         for (UserAccount ua : system.getUserAccountDirectory().getUserList()) {
             if ("Manager".equals(ua.getRole().toString())) {
-                cmbPickManager.addItem(ua.getUsername());
+                cmbPickManager.addItem(ua.getusername());
             }
         }
     }
