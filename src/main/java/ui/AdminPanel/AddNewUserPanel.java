@@ -269,7 +269,7 @@ private void populateOrganizations() {
 
     // Check duplicates
     for (UserAccount ua : system.getUserAccountDirectory().getUserList()) {
-        if (ua.getUsername().equals(username)) {
+        if (ua.getusername().equals(username)) {
             JOptionPane.showMessageDialog(this, "Username already exists.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
