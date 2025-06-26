@@ -159,7 +159,7 @@ private final String email;
     TicketBookingRequest req = new TicketBookingRequest(
         showName,
         String.join(", ", selectedSeats),
-        user.getUsername(),
+        user.getusername(),
         email
     );
 
