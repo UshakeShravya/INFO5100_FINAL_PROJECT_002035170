@@ -62,7 +62,7 @@ public class ProcessDistributionAssignmentPanel extends GradientPanel {
             String role = ua.getRole().toString();
             if ( ua.getRole() instanceof TechnicianRole
           || ua.getRole() instanceof ConcessionStaffRole ) {
-            cmbPickStaff.addItem(ua.getUsername());
+            cmbPickStaff.addItem(ua.getusername());
             }
         }
     }
