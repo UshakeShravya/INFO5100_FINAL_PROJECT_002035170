@@ -36,6 +36,10 @@
                       <EmptySpace min="-2" pref="204" max="-2" attributes="0"/>
                       <Component id="btnRecordPayment" min="-2" max="-2" attributes="0"/>
                   </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="183" max="-2" attributes="0"/>
+                      <Component id="btnViewRevenueReport" min="-2" pref="176" max="-2" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace pref="48" max="32767" attributes="0"/>
           </Group>
@@ -53,9 +57,11 @@
               <Component id="lblFinancialUpdateRequests" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="163" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="93" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
               <Component id="btnRecordPayment" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="116" max="32767" attributes="0"/>
+              <EmptySpace pref="45" max="32767" attributes="0"/>
+              <Component id="btnViewRevenueReport" min="-2" pref="80" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -131,6 +137,14 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBackActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnViewRevenueReport">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="View Revenue Report"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnViewRevenueReportActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
