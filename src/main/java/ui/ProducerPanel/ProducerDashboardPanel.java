@@ -7,9 +7,16 @@ package ui.ProducerPanel;
 import Business.EcoSystem;
 import Business.UserAccount.UserAccount;
 import Business.WorkRequest.MovieAcquisitionRequest;
+import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Font;
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import ui.GradientPanel;
 
@@ -42,6 +49,7 @@ public class ProducerDashboardPanel extends ui.GradientPanel {
         
         initComponents();
         populateTable();
+        rebuildProducerLayout();
         
     }
     
@@ -53,6 +61,41 @@ public class ProducerDashboardPanel extends ui.GradientPanel {
     }
 
 
+}
+
+    private void rebuildProducerLayout() {
+    this.removeAll();
+    this.setLayout(new BorderLayout());
+    this.setOpaque(false); // keep gradient
+
+    // --- Top Bar ---
+    JPanel topPanel = new JPanel(new BorderLayout());
+    topPanel.setOpaque(false);
+    topPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+    topPanel.add(btnBack, BorderLayout.WEST);
+
+    lblProducerDashboard.setHorizontalAlignment(SwingConstants.CENTER);
+    lblProducerDashboard.setFont(new Font("SansSerif", Font.BOLD, 20));
+    topPanel.add(lblProducerDashboard, BorderLayout.CENTER);
+
+    this.add(topPanel, BorderLayout.NORTH);
+
+    // --- Center Content ---
+    JPanel centerPanel = new JPanel();
+    centerPanel.setOpaque(false);
+    centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
+    centerPanel.setBorder(BorderFactory.createEmptyBorder(30, 20, 30, 20));
+
+    jScrollPane1.setAlignmentX(Component.CENTER_ALIGNMENT);
+    btnNewAquisitionRequest.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+    centerPanel.add(jScrollPane1);
+    centerPanel.add(Box.createVerticalStrut(30));
+    centerPanel.add(btnNewAquisitionRequest);
+    this.add(centerPanel, BorderLayout.CENTER);
+
+    this.revalidate();
+    this.repaint();
 }
 
 
@@ -72,6 +115,7 @@ public class ProducerDashboardPanel extends ui.GradientPanel {
         btnNewAquisitionRequest = new javax.swing.JButton();
 
         lblProducerDashboard.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
+        lblProducerDashboard.setForeground(new java.awt.Color(255, 255, 255));
         lblProducerDashboard.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblProducerDashboard.setText("Producer Dashboard");
 
@@ -116,26 +160,26 @@ public class ProducerDashboardPanel extends ui.GradientPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addComponent(btnBack)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 130, Short.MAX_VALUE)
-                .addComponent(lblProducerDashboard)
-                .addGap(187, 187, 187))
-            .addComponent(jScrollPane1)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 595, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(205, 205, 205)
-                .addComponent(btnNewAquisitionRequest)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(205, 205, 205)
+                        .addComponent(btnNewAquisitionRequest))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(btnBack)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(lblProducerDashboard, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnBack)
+                .addGap(1, 1, 1)
+                .addComponent(lblProducerDashboard)
                 .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblProducerDashboard)
-                    .addComponent(btnBack))
-                .addGap(28, 28, 28)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(96, 96, 96)
                 .addComponent(btnNewAquisitionRequest)

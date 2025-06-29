@@ -9,8 +9,12 @@ import Business.Role.TechnicianRole;
 import Business.UserAccount.UserAccount;
 import Business.WorkRequest.DistributionAssignmentRequest;
 import Business.WorkRequest.StaffAssignmentRequest;
+import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Component;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -41,7 +45,39 @@ public class ProcessDistributionAssignmentPanel extends GradientPanel {
         initComponents();
         populateTable();
         populateStaffCombo();
+        rebuildProcessDistributionAssignmentLayout();
     }
+    
+    public void rebuildProcessDistributionAssignmentLayout() {
+    setLayout(new BorderLayout());
+
+    JPanel topPanel = new JPanel(new BorderLayout());
+    topPanel.setOpaque(false);
+    topPanel.add(btnBack, BorderLayout.WEST);
+    topPanel.add(lblProcessDistributionAssignments, BorderLayout.CENTER);
+
+    JPanel centerPanel = new JPanel();
+    centerPanel.setOpaque(false);
+    centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
+
+    jScrollPane1.setAlignmentX(Component.CENTER_ALIGNMENT);
+    centerPanel.add(Box.createVerticalStrut(30));
+    centerPanel.add(jScrollPane1);
+    centerPanel.add(Box.createVerticalStrut(30));
+
+    JPanel assignPanel = new JPanel();
+    assignPanel.setOpaque(false);
+    assignPanel.add(lblPickStaff);
+    assignPanel.add(cmbPickStaff);
+    assignPanel.add(btnAssigntoStaff);
+    assignPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+    centerPanel.add(assignPanel);
+    centerPanel.add(Box.createVerticalGlue());
+
+    add(topPanel, BorderLayout.NORTH);
+    add(centerPanel, BorderLayout.CENTER);
+}
     
     private void populateTable() {
         DefaultTableModel m = (DefaultTableModel)tblProcessDistributionAssignments.getModel();

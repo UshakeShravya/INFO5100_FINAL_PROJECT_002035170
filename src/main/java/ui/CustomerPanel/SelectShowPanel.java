@@ -7,9 +7,11 @@ package ui.CustomerPanel;
 import Business.EcoSystem;
 import Business.UserAccount.UserAccount;
 import Business.WorkRequest.TicketBookingRequest;
+import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import ui.GradientPanel;
@@ -54,6 +56,7 @@ public class SelectShowPanel extends GradientPanel {
     // …etc
 }
 
+   
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -101,39 +104,37 @@ public class SelectShowPanel extends GradientPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lblSelectShow, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnContinuetoSeatSelection)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
-                            .addGap(80, 80, 80)
+                            .addGap(16, 16, 16)
+                            .addComponent(btnBack))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addGap(83, 83, 83)
                             .addComponent(lblShow)
-                            .addGap(56, 56, 56)
-                            .addComponent(cmbShow, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(29, 29, 29)
-                            .addComponent(btnBack)
-                            .addGap(114, 114, 114)
-                            .addComponent(lblSelectShow))))
-                .addContainerGap(170, Short.MAX_VALUE))
+                            .addGap(48, 48, 48)
+                            .addComponent(cmbShow, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(153, 153, 153)
+                        .addComponent(btnContinuetoSeatSelection)))
+                .addContainerGap(156, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(38, 38, 38)
-                        .addComponent(lblSelectShow))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addComponent(btnBack)))
-                .addGap(61, 61, 61)
+                .addContainerGap()
+                .addComponent(btnBack)
+                .addGap(27, 27, 27)
+                .addComponent(lblSelectShow)
+                .addGap(76, 76, 76)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblShow)
                     .addComponent(cmbShow, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 177, Short.MAX_VALUE)
+                .addGap(127, 127, 127)
                 .addComponent(btnContinuetoSeatSelection)
-                .addGap(124, 124, 124))
+                .addContainerGap(141, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

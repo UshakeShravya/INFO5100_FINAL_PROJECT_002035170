@@ -111,67 +111,65 @@ public class EcoSystem {
     
    
 }
-    
     public void loadFakeData() {
-    Faker faker = new Faker();
+        Faker faker = new Faker();
 
-    // Generate fake customers
-    for (int i = 0; i < 5; i++) {
-        String username = faker.name().username();
-        String fullName = faker.name().fullName();
+        // 🔥 Add random fake customers to user directory
+        for (int i = 0; i < 5; i++) {
+            String username = faker.name().username();
+            String fullName = faker.name().fullName();
 
-        userAccountDirectory.addUserAccount(new UserAccount(
-            username,
-            "cust@123",
-            new CustomerRole(),
-            "General Public",
-            fullName
-        ));
-    }
-
-    // Create some fake ticketing requests
-    for (int i = 0; i < 10; i++) {
-        TicketingRequest req = new TicketingRequest();  // ✅ You may need to ensure this constructor exists
-        req.setMovieTitle(faker.book().title());
-        req.setNumTickets(faker.number().numberBetween(1, 5));
-        req.setStatus("Issued");
-        // Optional: only if setter exists
-        // req.setRequestDate(new Date());
-
-        ticketReqList.add(req);
-    }
-
-    // Create some fake food orders
-    for (int i = 0; i < 8; i++) {
-        FoodOrderRequest order = new FoodOrderRequest();
-        order.setStatus("Processed");
-        // order.setRequestDate(new Date());  // only if setter exists
-
-        // Random customer
-        UserAccount customer = userAccountDirectory.getUserList().stream()
+            userAccountDirectory.addUserAccount(new UserAccount(
+                username,
+                "cust@123",
+                new CustomerRole(),
+                "General Public",
+                fullName
+            ));
+        }
+        
+        // ✅ Generate random food orders from customers
+        List<UserAccount> customers = userAccountDirectory.getUserList().stream()
             .filter(u -> u.getRole() instanceof CustomerRole)
-            .findAny()
-            .orElse(null);
+            .toList();
 
-        if (customer != null) {
-            order.setSender(customer);
+        for (int i = 0; i < 8; i++) {
+            FoodOrderRequest order = new FoodOrderRequest();
+            order.setStatus("Processed");
+
+            // 🔁 Random customer from list
+            UserAccount randomCustomer = customers.get(new Random().nextInt(customers.size()));
+            order.setSender(randomCustomer);
+
+            List<CartItem> items = new ArrayList<>();
+            for (int j = 0; j < faker.number().numberBetween(1, 4); j++) {
+                CartItem item = new CartItem(
+                    faker.food().dish(),
+                    faker.number().numberBetween(1, 3),
+                    faker.number().numberBetween(5, 20)
+                );
+                items.add(item);
+            }
+
+            order.setCartItems(items);
+            foodOrderRequests.add(order);
         }
 
-        List<CartItem> items = new ArrayList<>();
-        for (int j = 0; j < faker.number().numberBetween(1, 4); j++) {
-            CartItem item = new CartItem(
-                faker.food().dish(),
-                faker.number().numberBetween(1, 3),  // quantity
-                faker.number().numberBetween(5, 20)  // price
-            );
-            items.add(item);
-        }
+        // 🎟️ Generate fake ticketing requests
+for (int i = 0; i < 10; i++) {
+    TicketingRequest req = new TicketingRequest();
+    req.setMovieTitle(faker.book().title());
+    req.setNumTickets(faker.number().numberBetween(1, 5));
+    req.setStatus("Issued");
 
-        order.setCartItems(items);
-        foodOrderRequests.add(order);
-    }
+    // ✅ Assign a random customer name
+    UserAccount randomCustomer = customers.get(new Random().nextInt(customers.size()));
+    req.setCustomerName(randomCustomer.getName());
+
+    ticketReqList.add(req);
 }
-
+    }
+    
 
     public UserAccountDirectory getUserAccountDirectory() {
         return userAccountDirectory;

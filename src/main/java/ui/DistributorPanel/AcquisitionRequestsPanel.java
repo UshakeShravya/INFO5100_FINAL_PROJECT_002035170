@@ -9,10 +9,16 @@ import Business.WorkRequest.DistributionAssignmentRequest;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
 import Business.WorkRequest.MovieAcquisitionRequest;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Font;
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
 import ui.GradientPanel;
 
 /**
@@ -38,6 +44,8 @@ public class AcquisitionRequestsPanel extends GradientPanel {
         this.system   = system;
         initComponents();
         populateTable();
+        rebuildAcquisitionRequestsLayout();
+
     }
     
     private void populateTable() {
@@ -47,6 +55,48 @@ public class AcquisitionRequestsPanel extends GradientPanel {
             model.addRow(new Object[]{ r.getMovieTitle(), r.getBudget(), r.getStatus() });
         }
     }
+    
+    private void rebuildAcquisitionRequestsLayout() {
+    this.removeAll();
+    this.setLayout(new BorderLayout());
+    this.setOpaque(false);
+
+    // Top
+    JPanel topPanel = new JPanel(new BorderLayout());
+    topPanel.setOpaque(false);
+    topPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+    topPanel.add(btnBack, BorderLayout.WEST);
+
+    lblAcquisitionRequests.setHorizontalAlignment(SwingConstants.CENTER);
+    lblAcquisitionRequests.setFont(new Font("SansSerif", Font.BOLD, 20));
+    topPanel.add(lblAcquisitionRequests, BorderLayout.CENTER);
+    this.add(topPanel, BorderLayout.NORTH);
+
+    // Center
+    JPanel centerPanel = new JPanel();
+    centerPanel.setOpaque(false);
+    centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
+    centerPanel.setBorder(BorderFactory.createEmptyBorder(30, 20, 30, 20));
+
+    jScrollPane1.setAlignmentX(Component.CENTER_ALIGNMENT);
+    centerPanel.add(jScrollPane1);
+    centerPanel.add(Box.createVerticalStrut(30));
+
+    JPanel actionRow = new JPanel();
+    actionRow.setOpaque(false);
+    actionRow.setLayout(new BoxLayout(actionRow, BoxLayout.X_AXIS));
+    actionRow.setAlignmentX(Component.CENTER_ALIGNMENT);
+    actionRow.add(btnAccept);
+    actionRow.add(Box.createHorizontalStrut(40));
+    actionRow.add(btnReject);
+
+    centerPanel.add(actionRow);
+
+    this.add(centerPanel, BorderLayout.CENTER);
+    this.revalidate();
+    this.repaint();
+}
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

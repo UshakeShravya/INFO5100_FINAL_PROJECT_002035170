@@ -5,8 +5,12 @@
 package ui.ManagerPanel;
 import Business.EcoSystem;
 import Business.UserAccount.UserAccount;
+import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Component;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import ui.GradientPanel;
 
@@ -33,8 +37,32 @@ public class ManagerDashboardPanel extends GradientPanel {
         this.workarea = workarea;
         this.system   = system;
         initComponents();
+        rebuildManagerDashboardLayout();
     }
+    
+    public void rebuildManagerDashboardLayout() {
+    setLayout(new BorderLayout());
 
+    JPanel topPanel = new JPanel(new BorderLayout());
+    topPanel.setOpaque(false);
+    topPanel.add(btnBack, BorderLayout.WEST);
+    topPanel.add(lblManagerDashboard, BorderLayout.CENTER);
+
+    JPanel centerPanel = new JPanel();
+    centerPanel.setOpaque(false);
+    centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
+
+    centerPanel.add(Box.createVerticalGlue());
+    btnDistributionAssignments.setAlignmentX(Component.CENTER_ALIGNMENT);
+    centerPanel.add(btnDistributionAssignments);
+    centerPanel.add(Box.createVerticalStrut(20));
+    btnTicketingRequests.setAlignmentX(Component.CENTER_ALIGNMENT);
+    centerPanel.add(btnTicketingRequests);
+    centerPanel.add(Box.createVerticalGlue());
+
+    add(topPanel, BorderLayout.NORTH);
+    add(centerPanel, BorderLayout.CENTER);
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

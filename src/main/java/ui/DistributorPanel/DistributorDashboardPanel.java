@@ -7,9 +7,16 @@ package ui.DistributorPanel;
 
 import Business.EcoSystem;
 import Business.UserAccount.UserAccount;
+import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Font;
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import ui.GradientPanel;
 
 /**
@@ -37,8 +44,48 @@ public class DistributorDashboardPanel extends GradientPanel {
         this.workarea = workarea;
         this.system   = system;
         initComponents();
+        rebuildDistributorDashboardLayout();
+
     }
 
+     private void rebuildDistributorDashboardLayout() {
+    this.removeAll();
+    this.setLayout(new BorderLayout());
+    this.setOpaque(false);
+
+    // Top Bar
+    JPanel topPanel = new JPanel(new BorderLayout());
+    topPanel.setOpaque(false);
+    topPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+    topPanel.add(btnBack, BorderLayout.WEST);
+
+    jLabel1.setHorizontalAlignment(SwingConstants.CENTER);
+    jLabel1.setFont(new Font("SansSerif", Font.BOLD, 20));
+    topPanel.add(jLabel1, BorderLayout.CENTER);
+
+    this.add(topPanel, BorderLayout.NORTH);
+
+    // Center Buttons
+    JPanel centerPanel = new JPanel();
+    centerPanel.setOpaque(false);
+    centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
+    centerPanel.setBorder(BorderFactory.createEmptyBorder(40, 20, 40, 20));
+
+    btnAcquisitionRequest.setAlignmentX(Component.CENTER_ALIGNMENT);
+    btnDistributionAssignments.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+    centerPanel.add(Box.createVerticalGlue());
+    centerPanel.add(btnAcquisitionRequest);
+    centerPanel.add(Box.createVerticalStrut(30));
+    centerPanel.add(btnDistributionAssignments);
+    centerPanel.add(Box.createVerticalGlue());
+
+    this.add(centerPanel, BorderLayout.CENTER);
+
+    this.revalidate();
+    this.repaint();
+}
+   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

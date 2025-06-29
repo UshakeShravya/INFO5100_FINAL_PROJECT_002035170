@@ -6,12 +6,20 @@ package ui.AdminPanel;
 
 import Business.EcoSystem;
 import Business.UserAccount.UserAccount;
+import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Font;
 import static java.time.Clock.system;
 import static java.time.InstantSource.system;
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
+import javax.swing.SwingConstants;
 import ui.GradientPanel;
 
 /**
@@ -39,7 +47,63 @@ public class AdminDashboardPanel extends ui.GradientPanel {
     this.workarea = workarea;
     this.system = system;
     initComponents();
+    rebuildLayoutProperly();
+    
 }
+   private void rebuildLayoutProperly() {
+    this.removeAll();
+    this.setLayout(new BorderLayout());
+    this.setOpaque(false); // Keep gradient visible
+
+    // ========== TOP BAR ==========
+    JPanel topPanel = new JPanel(new BorderLayout());
+    topPanel.setOpaque(false);
+    topPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+    btnBack.setPreferredSize(new Dimension(80, 30));
+    topPanel.add(btnBack, BorderLayout.WEST);
+
+    jLabel1.setHorizontalAlignment(SwingConstants.CENTER);
+    jLabel1.setFont(new Font("SansSerif", Font.BOLD, 20));
+    topPanel.add(jLabel1, BorderLayout.CENTER);
+
+    this.add(topPanel, BorderLayout.NORTH);
+
+    // ========== CENTER CONTENT ==========
+    JPanel centerPanel = new JPanel();
+    centerPanel.setOpaque(false);
+    centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
+    centerPanel.setBorder(BorderFactory.createEmptyBorder(40, 20, 40, 20));
+
+    // Button Row (Manage + Add)
+    JPanel btnRow = new JPanel();
+    btnRow.setOpaque(false);
+    btnRow.setLayout(new BoxLayout(btnRow, BoxLayout.X_AXIS));
+    btnManageUserAccounts.setAlignmentX(Component.CENTER_ALIGNMENT);
+    btnAddNewUserAccount.setAlignmentX(Component.CENTER_ALIGNMENT);
+    btnRow.add(btnManageUserAccounts);
+    btnRow.add(Box.createHorizontalStrut(20));
+    btnRow.add(btnAddNewUserAccount);
+    btnRow.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+    // Assemble center content
+    centerPanel.add(Box.createVerticalGlue());
+    centerPanel.add(btnRow);
+    centerPanel.add(Box.createVerticalStrut(30));
+    btnLogOut.setAlignmentX(Component.CENTER_ALIGNMENT);
+    centerPanel.add(btnLogOut);
+    centerPanel.add(Box.createVerticalGlue());
+
+    this.add(centerPanel, BorderLayout.CENTER);
+
+    // Refresh the panel
+    this.revalidate();
+    this.repaint();
+}
+
+   
+   
+   
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -57,6 +121,7 @@ public class AdminDashboardPanel extends ui.GradientPanel {
         btnBack = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Admin Dashboard");
 
@@ -93,35 +158,35 @@ public class AdminDashboardPanel extends ui.GradientPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(16, 16, 16)
+                .addContainerGap()
                 .addComponent(btnBack)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(103, 103, 103)
-                .addComponent(btnManageUserAccounts)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
-                .addComponent(btnAddNewUserAccount)
-                .addGap(93, 93, 93))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(235, 235, 235)
                 .addComponent(btnLogOut)
-                .addGap(223, 223, 223))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(58, 58, 58)
+                .addComponent(btnManageUserAccounts)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 131, Short.MAX_VALUE)
+                .addComponent(btnAddNewUserAccount)
+                .addGap(73, 73, 73))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnBack)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(btnBack))
-                .addGap(115, 115, 115)
+                .addComponent(jLabel1)
+                .addGap(118, 118, 118)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnManageUserAccounts)
                     .addComponent(btnAddNewUserAccount))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 141, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 150, Short.MAX_VALUE)
                 .addComponent(btnLogOut)
-                .addGap(127, 127, 127))
+                .addGap(122, 122, 122))
         );
     }// </editor-fold>//GEN-END:initComponents
 

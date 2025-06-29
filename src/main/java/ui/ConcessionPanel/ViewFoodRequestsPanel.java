@@ -14,6 +14,7 @@ import Business.WorkRequest.FoodOrderRequest;
 import Business.WorkRequest.WorkRequest;
 import java.awt.CardLayout;
 import static java.time.Clock.system;
+import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -106,6 +107,7 @@ private void populateTable() {
         });
 
         jLabel1.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("View Food Requests");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -118,23 +120,20 @@ private void populateTable() {
                         .addGap(194, 194, 194)
                         .addComponent(btnMarkasProcessed))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(42, 42, 42)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnBack)
-                                .addGap(84, 84, 84)
-                                .addComponent(jLabel1))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(46, Short.MAX_VALUE))
+                        .addGap(32, 32, 32)
+                        .addComponent(btnBack)))
+                .addContainerGap(203, Short.MAX_VALUE))
+            .addComponent(jScrollPane2)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnBack)
-                    .addComponent(jLabel1))
-                .addGap(82, 82, 82)
+                .addGap(17, 17, 17)
+                .addComponent(btnBack)
+                .addGap(15, 15, 15)
+                .addComponent(jLabel1)
+                .addGap(61, 61, 61)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(59, 59, 59)
                 .addComponent(btnMarkasProcessed)
@@ -150,18 +149,28 @@ private void populateTable() {
         return;
     }
 
-    String sender = tblFoodRequests.getValueAt(selectedRow, 0).toString();
+    String senderUsername = tblFoodRequests.getValueAt(selectedRow, 0).toString();
+    String itemSummary = tblFoodRequests.getValueAt(selectedRow, 1).toString();
 
+    // Loop through food order requests
     for (FoodOrderRequest fr : system.getFoodOrderRequests()) {
-        if (fr.getSender() != null && fr.getSender().getusername().equals(sender)) {
+        String items = fr.getCartItems().stream()
+                         .map(item -> item.getFoodName() + " x" + item.getQuantity())
+                         .reduce((a, b) -> a + ", " + b).orElse("No items");
+
+        if (fr.getSender().getusername().equals(senderUsername) &&
+            items.equals(itemSummary) &&
+            !"Processed".equals(fr.getStatus())) {
+
             fr.setStatus("Processed");
+            fr.setProcessedDate(new Date());  // ✅ Important!
             JOptionPane.showMessageDialog(this, "Marked as processed!");
             populateTable();
             return;
         }
     }
 
-    JOptionPane.showMessageDialog(this, "Request not found.", "Error", JOptionPane.ERROR_MESSAGE);
+    JOptionPane.showMessageDialog(this, "Matching request not found.", "Error", JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_btnMarkasProcessedActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed

@@ -7,10 +7,18 @@ package ui.DistributorPanel;
 import Business.EcoSystem;
 import Business.UserAccount.UserAccount;
 import Business.WorkRequest.DistributionAssignmentRequest;
+import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Font;
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import ui.GradientPanel;
 
@@ -39,6 +47,8 @@ public class DistributionAssignmentsPanel extends GradientPanel{
         initComponents();
         populateTable();
         populateManagerCombo();
+        rebuildDistributionAssignmentsLayout();
+
     }
     
     private void populateTable() {
@@ -64,6 +74,49 @@ public class DistributionAssignmentsPanel extends GradientPanel{
         }
     }
     
+    private void rebuildDistributionAssignmentsLayout() {
+    this.removeAll();
+    this.setLayout(new BorderLayout());
+    this.setOpaque(false);
+
+    // Top
+    JPanel topPanel = new JPanel(new BorderLayout());
+    topPanel.setOpaque(false);
+    topPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+    topPanel.add(btnBack, BorderLayout.WEST);
+
+    lblDistributionAssignments.setHorizontalAlignment(SwingConstants.CENTER);
+    lblDistributionAssignments.setFont(new Font("SansSerif", Font.BOLD, 20));
+    topPanel.add(lblDistributionAssignments, BorderLayout.CENTER);
+    this.add(topPanel, BorderLayout.NORTH);
+
+    // Center
+    JPanel center = new JPanel();
+    center.setLayout(new BoxLayout(center, BoxLayout.Y_AXIS));
+    center.setOpaque(false);
+    center.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+
+    jScrollPane1.setAlignmentX(Component.CENTER_ALIGNMENT);
+    center.add(jScrollPane1);
+    center.add(Box.createVerticalStrut(30));
+
+    JPanel assignPanel = new JPanel();
+    assignPanel.setOpaque(false);
+    assignPanel.setLayout(new BoxLayout(assignPanel, BoxLayout.X_AXIS));
+    assignPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 30));
+    assignPanel.add(lblPickManager);
+    assignPanel.add(Box.createHorizontalStrut(10));
+    assignPanel.add(cmbPickManager);
+    assignPanel.add(Box.createHorizontalStrut(20));
+    assignPanel.add(btnAssign);
+    assignPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+    center.add(assignPanel);
+
+    this.add(center, BorderLayout.CENTER);
+    this.revalidate();
+    this.repaint();
+}
 
     /**
      * This method is called from within the constructor to initialize the form.

@@ -6,11 +6,20 @@ package ui.ProducerPanel;
 
 import Business.EcoSystem;
 import Business.WorkRequest.MovieAcquisitionRequest;
+import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Font;
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import ui.GradientPanel;
 
 /**
@@ -38,7 +47,57 @@ public class MovieAcquisitionRequestPanel extends GradientPanel {
         this.workarea = workarea;
         this.system   = system;
         initComponents();
+        rebuildAcquisitionFormLayout();
+
     }
+    private void rebuildAcquisitionFormLayout() {
+    this.removeAll();
+    this.setLayout(new BorderLayout());
+    this.setOpaque(false);
+
+    // --- Top Bar ---
+    JPanel topPanel = new JPanel(new BorderLayout());
+    topPanel.setOpaque(false);
+    topPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+    topPanel.add(btnBack, BorderLayout.WEST);
+
+    lblNewAcquisitionRequest.setHorizontalAlignment(SwingConstants.CENTER);
+    lblNewAcquisitionRequest.setFont(new Font("SansSerif", Font.BOLD, 20));
+    topPanel.add(lblNewAcquisitionRequest, BorderLayout.CENTER);
+    this.add(topPanel, BorderLayout.NORTH);
+
+    // --- Center Form ---
+    JPanel formPanel = new JPanel();
+    formPanel.setOpaque(false);
+    formPanel.setLayout(new BoxLayout(formPanel, BoxLayout.Y_AXIS));
+    formPanel.setBorder(BorderFactory.createEmptyBorder(40, 80, 40, 80));
+
+    addFormRow(formPanel, lblMovieTitle, txtMovieTitle);
+    addFormRow(formPanel, lblDescription, txtDescription);
+    addFormRow(formPanel, lblBudget, txtBudget);
+
+    btnSubmit.setAlignmentX(Component.CENTER_ALIGNMENT);
+    formPanel.add(Box.createVerticalStrut(30));
+    formPanel.add(btnSubmit);
+
+    this.add(formPanel, BorderLayout.CENTER);
+
+    this.revalidate();
+    this.repaint();
+}
+
+private void addFormRow(JPanel panel, JLabel label, JTextField field) {
+    JPanel row = new JPanel();
+    row.setOpaque(false);
+    row.setLayout(new BoxLayout(row, BoxLayout.X_AXIS));
+    label.setPreferredSize(new Dimension(100, 25));
+    row.add(label);
+    row.add(Box.createHorizontalStrut(10));
+    row.add(field);
+    row.setMaximumSize(new Dimension(Integer.MAX_VALUE, 35));
+    panel.add(row);
+    panel.add(Box.createVerticalStrut(20));
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -67,13 +126,17 @@ public class MovieAcquisitionRequestPanel extends GradientPanel {
         });
 
         lblNewAcquisitionRequest.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
+        lblNewAcquisitionRequest.setForeground(new java.awt.Color(255, 255, 255));
         lblNewAcquisitionRequest.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblNewAcquisitionRequest.setText("New Acquisition Request");
 
+        lblMovieTitle.setForeground(new java.awt.Color(255, 255, 255));
         lblMovieTitle.setText("Movie Title :");
 
+        lblDescription.setForeground(new java.awt.Color(255, 255, 255));
         lblDescription.setText("Description:");
 
+        lblBudget.setForeground(new java.awt.Color(255, 255, 255));
         lblBudget.setText("Budget :");
 
         btnSubmit.setText("Submit");
@@ -90,10 +153,8 @@ public class MovieAcquisitionRequestPanel extends GradientPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(btnBack)
-                        .addGap(103, 103, 103)
-                        .addComponent(lblNewAcquisitionRequest))
+                        .addGap(15, 15, 15)
+                        .addComponent(btnBack))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(40, 40, 40)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -109,15 +170,16 @@ public class MovieAcquisitionRequestPanel extends GradientPanel {
                         .addGap(226, 226, 226)
                         .addComponent(btnSubmit)))
                 .addContainerGap(93, Short.MAX_VALUE))
+            .addComponent(lblNewAcquisitionRequest, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnBack)
-                    .addComponent(lblNewAcquisitionRequest))
-                .addGap(55, 55, 55)
+                .addContainerGap()
+                .addComponent(btnBack)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblNewAcquisitionRequest)
+                .addGap(43, 43, 43)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblMovieTitle)
                     .addComponent(txtMovieTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))

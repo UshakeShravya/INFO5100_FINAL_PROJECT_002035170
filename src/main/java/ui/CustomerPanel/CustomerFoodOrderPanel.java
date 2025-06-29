@@ -13,18 +13,26 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import Business.CartItem;
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.SwingConstants;
 
 /**
  *
  * @author ushakeshravya
  */
 public class CustomerFoodOrderPanel extends javax.swing.JPanel {
+
     private JPanel workarea;
-private EcoSystem system;
-private UserAccount user;
-private List<CartItem> cart = new ArrayList<>();
-private String selectedItem = "";
-private int quantity = 1;
+    private EcoSystem system;
+    private UserAccount user;
+    private List<CartItem> cart = new ArrayList<>();
+    private String selectedItem = "";
+    private int quantity = 1;
     private String foodName;
 
     /**
@@ -32,34 +40,43 @@ private int quantity = 1;
      */
     public CustomerFoodOrderPanel(JPanel workarea, EcoSystem system, UserAccount user) {
         this.workarea = workarea;
-    this.system = system;
-    this.user = user;
+        this.system = system;
+        this.user = user;
         initComponents();
         txtPrice.setText("0.0");
+       
+
     }
-    
-     private void updatePrice() {
-    int pricePerUnit = switch (selectedItem) {
-        case "Popcorn" -> 5;
-        case "Coke" -> 3;
-        case "Chocolate" -> 4;
-        default -> 0;
-    };
-    txtPrice.setText(String.valueOf(quantity * pricePerUnit));
-}
-    
+
+    private void updatePrice() {
+        int pricePerUnit = switch (selectedItem) {
+            case "Popcorn" ->
+                5;
+            case "Coke" ->
+                3;
+            case "Chocolate" ->
+                4;
+            default ->
+                0;
+        };
+        txtPrice.setText(String.valueOf(quantity * pricePerUnit));
+    }
+
     private int getPriceForItem(String foodName) {
-    switch (foodName.toLowerCase()) {
-        case "popcorn":
-            return 120;
-        case "coke":
-            return 80;
-        case "nachos":
-            return 150;
-        default:
-            return 100;  // default price
+        switch (foodName.toLowerCase()) {
+            case "popcorn":
+                return 120;
+            case "coke":
+                return 80;
+            case "nachos":
+                return 150;
+            default:
+                return 100;  // default price
+        }
     }
-}
+
+  
+ 
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -74,7 +91,7 @@ private int quantity = 1;
         btnAddtoCart = new javax.swing.JButton();
         btnViewCart = new javax.swing.JButton();
         txtPrice = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
+        lblFoodOrder = new javax.swing.JLabel();
         btnBack = new javax.swing.JButton();
         lblCategory = new javax.swing.JLabel();
         lblPrice = new javax.swing.JLabel();
@@ -106,8 +123,9 @@ private int quantity = 1;
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
-        jLabel1.setText("Order Food");
+        lblFoodOrder.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
+        lblFoodOrder.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblFoodOrder.setText("Order Food");
 
         btnBack.setText("Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
@@ -116,6 +134,7 @@ private int quantity = 1;
             }
         });
 
+        lblCategory.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblCategory.setText("Category :");
 
         lblPrice.setText("Price :");
@@ -159,80 +178,72 @@ private int quantity = 1;
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lblFoodOrder, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(lblCategory)
-                        .addGap(276, 276, 276))
+                        .addContainerGap()
+                        .addComponent(btnAddtoCart)
+                        .addGap(178, 178, 178)
+                        .addComponent(btnViewCart)
+                        .addGap(60, 60, 60))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnBack)
-                                .addGap(129, 129, 129)
-                                .addComponent(jLabel1))
+                                .addGap(27, 27, 27)
+                                .addComponent(btnBack))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(141, 141, 141)
-                                .addComponent(btnAddtoCart)
-                                .addGap(69, 69, 69)
-                                .addComponent(btnViewCart))
-                            .addGroup(layout.createSequentialGroup()
+                                .addGap(92, 92, 92)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGap(28, 28, 28)
                                         .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(51, 51, 51)
-                                        .addComponent(lblQty))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(37, 37, 37)
-                                        .addComponent(btnPopcorn)))
-                                .addGap(43, 43, 43)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(btnCoke, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(71, 71, 71)
-                                        .addComponent(btnChocolate))
-                                    .addGroup(layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(lblQty)
+                                        .addGap(18, 18, 18)
                                         .addComponent(btnMinus, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(56, 56, 56)
-                                        .addComponent(lblPrice)
-                                        .addGap(35, 35, 35)
-                                        .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addContainerGap(71, Short.MAX_VALUE))))
+                                        .addGap(66, 66, 66)
+                                        .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(lblPrice))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(btnPopcorn)
+                                        .addGap(50, 50, 50)
+                                        .addComponent(btnCoke, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(50, 50, 50)
+                                        .addComponent(btnChocolate)))))
+                        .addGap(39, 39, 39)))
+                .addContainerGap(47, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(191, 191, 191)
+                .addComponent(lblCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addComponent(btnBack))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(33, 33, 33)
-                        .addComponent(jLabel1)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(57, 57, 57)
-                        .addComponent(lblCategory)
-                        .addGap(18, 18, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnPopcorn, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnCoke, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnChocolate, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(72, 72, 72)))
+                .addGap(14, 14, 14)
+                .addComponent(btnBack)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblFoodOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addComponent(lblCategory)
+                .addGap(42, 42, 42)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnChocolate, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCoke, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPopcorn, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblQty)
                     .addComponent(btnMinus, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblPrice)
-                    .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(88, 88, 88)
+                    .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblPrice))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAddtoCart)
                     .addComponent(btnViewCart))
-                .addGap(121, 121, 121))
+                .addGap(118, 118, 118))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -265,10 +276,11 @@ private int quantity = 1;
 
     private void btnViewCartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewCartActionPerformed
         // TODO add your handling code here:
-        CartPanel cartPanel = new CartPanel(workarea,system, user); // ✅ correct
-        // pass user directly
-        workarea.add("CartPanel", cartPanel);
-        ((CardLayout) workarea.getLayout()).next(workarea);
+        CartPanel cartPanel = new CartPanel(workarea, system, user);
+workarea.add("CartPanel", cartPanel);
+CardLayout layout = (CardLayout) workarea.getLayout();
+layout.show(workarea, "CartPanel");  // ✅ explicitly show
+
     }//GEN-LAST:event_btnViewCartActionPerformed
 
     private void txtPriceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPriceActionPerformed
@@ -278,7 +290,7 @@ private int quantity = 1;
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
         workarea.remove(this);
-        ((CardLayout)workarea.getLayout()).previous(workarea);
+        ((CardLayout) workarea.getLayout()).previous(workarea);
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnPopcornActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPopcornActionPerformed
@@ -328,8 +340,8 @@ private int quantity = 1;
     private javax.swing.JButton btnMinus;
     private javax.swing.JButton btnPopcorn;
     private javax.swing.JButton btnViewCart;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblCategory;
+    private javax.swing.JLabel lblFoodOrder;
     private javax.swing.JLabel lblPrice;
     private javax.swing.JLabel lblQty;
     private javax.swing.JTextField txtPrice;

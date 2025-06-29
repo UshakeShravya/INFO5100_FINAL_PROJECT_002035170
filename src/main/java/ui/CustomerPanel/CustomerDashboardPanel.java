@@ -6,14 +6,29 @@ package ui.CustomerPanel;
 
 import Business.EcoSystem;
 import Business.UserAccount.UserAccount;
+import Business.WorkRequest.FoodOrderRequest;
 import Business.WorkRequest.TicketBookingRequest;
+import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.Toolkit;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.SwingConstants;
 import ui.GradientPanel;
 
 /**
@@ -43,6 +58,10 @@ public class CustomerDashboardPanel extends GradientPanel {
        this.user     = user;
         initComponents();
         populateTable();
+        
+
+   
+
     }
     
     public void populateTable() {
@@ -58,6 +77,43 @@ public class CustomerDashboardPanel extends GradientPanel {
         }
     }
 }
+
+    private void checkForProcessedFoodOrders() {
+    boolean shouldNotify = false;
+
+    for (FoodOrderRequest r : system.getFoodOrderRequests()) {
+        if (r.getSender().equals(user)
+            && "Processed".equalsIgnoreCase(r.getStatus())
+            && r.getProcessedDate() != null
+            && (user.getLastSeenFoodNotification() == null
+                || r.getProcessedDate().after(user.getLastSeenFoodNotification()))) {
+
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this,
+                "🍿 Your food order has been processed!",
+                "Order Ready", JOptionPane.INFORMATION_MESSAGE);
+
+            shouldNotify = true;
+            break;
+        }
+    }
+
+    if (shouldNotify) {
+        user.setLastSeenFoodNotification(new Date());
+    }
+}
+
+  @Override
+public void addNotify() {
+    super.addNotify();
+
+    javax.swing.SwingUtilities.invokeLater(() -> {
+        checkForProcessedFoodOrders();
+    });
+}
+
+
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -83,6 +139,7 @@ public class CustomerDashboardPanel extends GradientPanel {
         lblCustomerDashboard.setText("Customer Dashboard");
 
         lblPreviousBookingRequests.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
+        lblPreviousBookingRequests.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblPreviousBookingRequests.setText("Previous Booking Requests:");
 
         tblBookingReq.setModel(new javax.swing.table.DefaultTableModel(
@@ -141,58 +198,47 @@ public class CustomerDashboardPanel extends GradientPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(lblPreviousBookingRequests)
-                        .addGap(185, 185, 185))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(52, 52, 52))))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(38, 38, 38)
-                        .addComponent(btnBack)
-                        .addGap(75, 75, 75)
-                        .addComponent(lblCustomerDashboard))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(51, 51, 51)
                         .addComponent(lblEmailId)
                         .addGap(18, 18, 18)
                         .addComponent(txtEmailId, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(231, 231, 231)
-                        .addComponent(btnBookTicket))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(188, 188, 188)
-                        .addComponent(btnOrderFood, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(btnBack)))
                 .addContainerGap(62, Short.MAX_VALUE))
+            .addComponent(lblCustomerDashboard, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jScrollPane1)
+            .addComponent(lblPreviousBookingRequests, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(62, 62, 62)
+                .addComponent(btnBookTicket, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnOrderFood, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(62, 62, 62))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(36, 36, 36)
-                        .addComponent(lblCustomerDashboard))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addComponent(btnBack)))
-                .addGap(41, 41, 41)
+                .addContainerGap()
+                .addComponent(btnBack)
+                .addGap(20, 20, 20)
+                .addComponent(lblCustomerDashboard)
+                .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblEmailId)
                     .addComponent(txtEmailId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(40, 40, 40)
+                .addGap(33, 33, 33)
                 .addComponent(lblPreviousBookingRequests)
-                .addGap(26, 26, 26)
+                .addGap(33, 33, 33)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(46, 46, 46)
-                .addComponent(btnBookTicket)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
-                .addComponent(btnOrderFood, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42))
+                .addGap(75, 75, 75)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnOrderFood, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBookTicket, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(113, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -207,10 +253,20 @@ public class CustomerDashboardPanel extends GradientPanel {
         );
         return;
     }
-    // ...then hand off to SelectShowPanel, including email:
-    String customerEmail = txtEmailId.getText().trim();
+
+    // ✅ Updated Regex: Allow gmail, yahoo, outlook, northeastern
+    String emailRegex = "^[a-zA-Z0-9._%+-]+@(gmail\\.com|yahoo\\.com|outlook\\.com|northeastern\\.edu)$";
+    if (!email.matches(emailRegex)) {
+        JOptionPane.showMessageDialog(this,
+            "Invalid email format. Please use a valid email like abc@gmail.com, abc@yahoo.com, abc@outlook.com or abc@northeastern.edu",
+            "Invalid Email",
+            JOptionPane.ERROR_MESSAGE
+        );
+        return;
+    }
+
          SelectShowPanel panel =
-        new SelectShowPanel(workarea, system, user, customerEmail);
+        new SelectShowPanel(workarea, system, user, email);
     workarea.add("TicketBooking", panel);
     ((CardLayout)workarea.getLayout()).next(workarea);
     }//GEN-LAST:event_btnBookTicketActionPerformed

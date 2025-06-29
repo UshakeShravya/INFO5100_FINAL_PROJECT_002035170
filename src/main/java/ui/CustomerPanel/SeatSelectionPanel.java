@@ -9,8 +9,10 @@ import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
 import static java.time.Clock.system;
 import Business.WorkRequest.TicketBookingRequest;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JButton;
@@ -40,6 +42,7 @@ private final String email;
         this.email = email;
         initComponents();
         loadSeats();
+       
     }
     
         public void loadSeats() {
@@ -69,6 +72,7 @@ private final String email;
     seatGridPanel.repaint();
 }
 
+        
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -79,13 +83,14 @@ private final String email;
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        lblSeatSelection = new javax.swing.JLabel();
         btnConfirmBooking = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
         seatGridPanel = new javax.swing.JPanel();
 
-        jLabel1.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
-        jLabel1.setText("Select your Seats");
+        lblSeatSelection.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
+        lblSeatSelection.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblSeatSelection.setText("Select your Seats");
 
         btnConfirmBooking.setText("Confirm Booking");
         btnConfirmBooking.addActionListener(new java.awt.event.ActionListener() {
@@ -108,15 +113,14 @@ private final String email;
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(233, 233, 233)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addGap(95, 95, 95)
                 .addComponent(btnConfirmBooking)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 203, Short.MAX_VALUE)
                 .addComponent(btnBack)
                 .addGap(142, 142, 142))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblSeatSelection, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(319, 319, 319)
@@ -126,9 +130,9 @@ private final String email;
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(48, 48, 48)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 408, Short.MAX_VALUE)
+                .addGap(51, 51, 51)
+                .addComponent(lblSeatSelection)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 405, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnConfirmBooking)
                     .addComponent(btnBack))
@@ -186,7 +190,7 @@ private final String email;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnConfirmBooking;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel lblSeatSelection;
     private javax.swing.JPanel seatGridPanel;
     // End of variables declaration//GEN-END:variables
 }

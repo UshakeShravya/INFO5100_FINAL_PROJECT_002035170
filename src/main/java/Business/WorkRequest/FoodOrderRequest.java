@@ -19,6 +19,7 @@ public class FoodOrderRequest extends WorkRequest {
     
     
     private List<CartItem> cartItems = new ArrayList<>();
+    private Date processedDate;
 
     // ✅ Default constructor that calls superclass constructor with dummy values
     public FoodOrderRequest() {
@@ -42,6 +43,17 @@ public class FoodOrderRequest extends WorkRequest {
         return sum;
     }
      
+
+
+public Date getProcessedDate() {
+    return processedDate;
+}
+
+public void setProcessedDate(Date processedDate) {
+    this.processedDate = processedDate;
+}
+
+
      
     @Override
     public String toString() {

@@ -106,9 +106,11 @@ private void populateOrganizations() {
         btnBack = new javax.swing.JButton();
 
         lblAddNewUserAccount.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
+        lblAddNewUserAccount.setForeground(new java.awt.Color(255, 255, 255));
         lblAddNewUserAccount.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblAddNewUserAccount.setText("Add New User Account");
 
+        lblUsername.setForeground(new java.awt.Color(255, 255, 255));
         lblUsername.setText("Username :");
 
         txtUsername.addActionListener(new java.awt.event.ActionListener() {
@@ -117,6 +119,7 @@ private void populateOrganizations() {
             }
         });
 
+        lblPassword.setForeground(new java.awt.Color(255, 255, 255));
         lblPassword.setText("Password :");
 
         txtPassword.addActionListener(new java.awt.event.ActionListener() {
@@ -125,6 +128,7 @@ private void populateOrganizations() {
             }
         });
 
+        lblName.setForeground(new java.awt.Color(255, 255, 255));
         lblName.setText("Name :");
 
         txtName.addActionListener(new java.awt.event.ActionListener() {
@@ -133,6 +137,7 @@ private void populateOrganizations() {
             }
         });
 
+        lblRole.setForeground(new java.awt.Color(255, 255, 255));
         lblRole.setText("Role :");
 
         cmbRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -142,6 +147,7 @@ private void populateOrganizations() {
             }
         });
 
+        lblOrganization.setForeground(new java.awt.Color(255, 255, 255));
         lblOrganization.setText("Organization :");
 
         cmbOrganization.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));

@@ -8,6 +8,7 @@ import Business.Organization.Organization;
 import Business.Role.Role;
 import Business.CartItem;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -24,6 +25,7 @@ public class UserAccount {
     private String organization;
     private String name;
     private List<CartItem> cart = new ArrayList<>();
+    private Date lastSeenFoodNotification;
 
     public UserAccount(String username, String password, Role role, String organization, String name) {
         this.username = username;
@@ -48,6 +50,14 @@ public class UserAccount {
     
     public void setusername(String username) {
     this.username = username;
+}
+    
+public Date getLastSeenFoodNotification() {
+    return lastSeenFoodNotification;
+}
+
+public void setLastSeenFoodNotification(Date lastSeenFoodNotification) {
+    this.lastSeenFoodNotification = lastSeenFoodNotification;
 }
 
 }

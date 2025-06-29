@@ -6,10 +6,18 @@ package ui.ManagerPanel;
 import Business.EcoSystem;
 import Business.UserAccount.UserAccount;
 import Business.WorkRequest.TicketingRequest;
+import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Font;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import ui.GradientPanel;
 
 /**
@@ -36,7 +44,75 @@ public class TicketingRequestPanel extends GradientPanel {
         this.workarea = workarea;
         this.system   = system;
         initComponents();
+        rebuildTicketingRequestLayout();
     }
+    public void rebuildTicketingRequestLayout() {
+    setLayout(new BorderLayout());
+
+    // Top section with Back button and title
+    JPanel topPanel = new JPanel(new BorderLayout());
+    topPanel.setOpaque(false);
+    topPanel.add(btnBack, BorderLayout.WEST);
+
+    lblNewTicketingRequest.setHorizontalAlignment(JLabel.CENTER);
+    lblNewTicketingRequest.setFont(new Font("SansSerif", Font.BOLD, 18));
+    topPanel.add(lblNewTicketingRequest, BorderLayout.CENTER);
+
+    // Form layout
+    JPanel formPanel = new JPanel();
+    formPanel.setOpaque(false);
+    formPanel.setLayout(new BoxLayout(formPanel, BoxLayout.Y_AXIS));
+
+    // Set preferred size to normal width
+    Dimension fieldSize = new Dimension(180, 28);
+    Font fieldFont = new Font("SansSerif", Font.PLAIN, 14);
+
+    JTextField[] fields = {
+        txtCustomerName, txtMovieTitle, txtShowTime, txtNumberofTickets
+    };
+    for (JTextField field : fields) {
+        field.setPreferredSize(fieldSize);
+        field.setMaximumSize(fieldSize);
+        field.setFont(fieldFont);
+    }
+
+    formPanel.add(Box.createVerticalStrut(20));
+    formPanel.add(createLabeledField(lblCustomerName, txtCustomerName));
+    formPanel.add(Box.createVerticalStrut(10));
+    formPanel.add(createLabeledField(lblMovieTitle, txtMovieTitle));
+    formPanel.add(Box.createVerticalStrut(10));
+    formPanel.add(createLabeledField(lblShowTime, txtShowTime));
+    formPanel.add(Box.createVerticalStrut(10));
+    formPanel.add(createLabeledField(lblNumberofTickets, txtNumberofTickets));
+    formPanel.add(Box.createVerticalStrut(20));
+
+    btnSubmitRequest.setAlignmentX(Component.CENTER_ALIGNMENT);
+    formPanel.add(btnSubmitRequest);
+
+    add(topPanel, BorderLayout.NORTH);
+    add(formPanel, BorderLayout.CENTER);
+}
+
+
+
+private JPanel createLabeledField(JLabel label, JTextField field) {
+    JPanel panel = new JPanel();
+    panel.setOpaque(false);
+    panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+
+    label.setPreferredSize(new Dimension(140, 28));
+    label.setFont(new Font("SansSerif", Font.BOLD, 14));
+
+    panel.add(Box.createHorizontalStrut(60));
+    panel.add(label);
+    panel.add(Box.createHorizontalStrut(10));
+    panel.add(field);
+    panel.add(Box.createHorizontalGlue());
+    return panel;
+}
+
+
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
