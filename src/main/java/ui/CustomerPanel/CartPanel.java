@@ -28,11 +28,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.Timer;
+import ui.GradientPanel;
 /**
  *
  * @author ushakeshravya
  */
-public class CartPanel extends javax.swing.JPanel {
+public class CartPanel extends GradientPanel {
     private EcoSystem system;
     private JPanel workarea;
     private UserAccount user;
@@ -46,6 +47,14 @@ private javax.swing.table.DefaultTableModel model;
      * Creates new form CartPanel
      */
     public CartPanel(JPanel workarea, EcoSystem system, UserAccount user) {
+        super(
+            new Color[] {
+                new Color(221, 160, 221),   // Soft Lavender
+                new Color(230, 230, 250),   // Lavender
+                new Color(216, 191, 216)    // Thistle
+            },
+            new float[] { 0f, 0.5f, 1f }
+        );
         this.workarea = workarea;
     this.system = system; 
     this.user = user;

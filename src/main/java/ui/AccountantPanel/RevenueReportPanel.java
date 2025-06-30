@@ -11,6 +11,7 @@ import Business.WorkRequest.TicketingRequest;
 import Business.CartItem;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.util.HashMap;
 import java.util.List;
@@ -23,19 +24,28 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 import java.util.stream.Collectors;
+import ui.GradientPanel;
 
 
 /**
  *
  * @author ushakeshravyacopy
  */
-public class RevenueReportPanel extends javax.swing.JPanel {
+public class RevenueReportPanel extends GradientPanel {
      private final JPanel workarea;
      private final EcoSystem system;
     /**
      * Creates new form RevenueReportPanel
      */
     public RevenueReportPanel(JPanel workarea, EcoSystem system) {
+        super(
+            new Color[] {
+                new Color(173, 216, 230),  // Light Sky Blue
+                new Color(245, 245, 245),  // Powder White
+                new Color(152, 251, 152)   // Mint Green
+            },
+            new float[] { 0f, 0.5f, 1f }
+        );
         this.workarea = workarea;
         this.system   = system;
         initComponents();

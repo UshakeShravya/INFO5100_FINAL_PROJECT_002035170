@@ -27,7 +27,7 @@ public class ManageUserAccountPanel extends ui.GradientPanel {
      * Creates new form ManageUserAccountPanel
      */
     public ManageUserAccountPanel(JPanel workarea, EcoSystem system) {
-super(  // 👇 Gradient: Red → Black → Silver
+super(  // ? Gradient: Red → Black → Silver
             new Color[] {
                 new Color(139, 0, 0),
                 new Color(30, 30, 30),
@@ -47,8 +47,8 @@ super(  // 👇 Gradient: Red → Black → Silver
 
     for (UserAccount ua : system.getUserAccountDirectory().getUserList()) {
         Object[] row = new Object[3];
-        row[0] = ua.getusername();
-        row[1] = ua.getRole(); // Use correct getter
+        row[0] = ua; // ? Store the actual UserAccount object (requires toString override)
+        row[1] = ua.getRole().getClass().getSimpleName();
         row[2] = ua.getOrganization(); // Use correct getter
         model.addRow(row);
     }
@@ -161,7 +161,8 @@ super(  // 👇 Gradient: Red → Black → Silver
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
-        int selectedRow = tblMngUserAccnts.getSelectedRow();
+       
+         int selectedRow = tblMngUserAccnts.getSelectedRow();
     if (selectedRow < 0) {
         JOptionPane.showMessageDialog(this, 
             "Please select a user to delete.", 
@@ -169,62 +170,29 @@ super(  // 👇 Gradient: Red → Black → Silver
         return;
     }
 
-    // Grab the username from the selected table row:
-    String username = (String) tblMngUserAccnts.getValueAt(selectedRow, 0);
+    UserAccount selectedUser = (UserAccount) tblMngUserAccnts.getValueAt(selectedRow, 0);
 
-    // Find the matching UserAccount object:
-    UserAccount toRemove = null;
-    for (UserAccount ua : system.getUserAccountDirectory().getUserList()) {
-        if (ua.getusername().equals(username)) {
-            toRemove = ua;
-            break;
-        }
-    }
+    system.getUserAccountDirectory().removeUserAccount(selectedUser);
 
-    if (toRemove != null) {
-        // Remove it via your helper (or directly from the list):
-        system.getUserAccountDirectory().removeUserAccount(toRemove);
+    JOptionPane.showMessageDialog(this, 
+        "User \"" + selectedUser.getusername() + "\" deleted.", 
+        "Info", JOptionPane.INFORMATION_MESSAGE);
 
-        JOptionPane.showMessageDialog(this, 
-            "User \"" + username + "\" deleted.", 
-            "Info", JOptionPane.INFORMATION_MESSAGE);
-
-        // Refresh the table:
-        populateTable();
-    } else {
-        JOptionPane.showMessageDialog(this, 
-            "Error: could not find the selected user.", 
-            "Error", JOptionPane.ERROR_MESSAGE);
-    }
+    populateTable();
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         // TODO add your handling code here:
         int selectedRow = tblMngUserAccnts.getSelectedRow();
+if (selectedRow < 0) {
+    JOptionPane.showMessageDialog(this, "Please select a user to edit.");
+    return;
+}
 
-    if (selectedRow < 0) {
-        JOptionPane.showMessageDialog(this, "Please select a user to edit.", "No selection", JOptionPane.WARNING_MESSAGE);
-        return;
-    }
+UserAccount selectedUser = (UserAccount) tblMngUserAccnts.getValueAt(selectedRow, 0); // Make sure column 0 has the UserAccount object
+EditUserPanel editPanel = new EditUserPanel(workarea, system, selectedUser);workarea.add("EditUserPanel", editPanel);
+((CardLayout) workarea.getLayout()).next(workarea);
 
-    String username = (String) tblMngUserAccnts.getValueAt(selectedRow, 0);
-    UserAccount selectedUser = null;
-    for (UserAccount ua : system.getUserAccountDirectory().getUserList()) {
-        if (ua.getusername().equals(username)) {
-            selectedUser = ua;
-            break;
-        }
-    }
-
-    if (selectedUser == null) {
-        JOptionPane.showMessageDialog(this, "User not found!", "Error", JOptionPane.ERROR_MESSAGE);
-        return;
-    }
-
-    EditUserPanel editPanel = new EditUserPanel(workarea, system, selectedUser);
-
-    workarea.add("EditUserPanel", editPanel);
-    ((CardLayout) workarea.getLayout()).next(workarea);
 
     }//GEN-LAST:event_btnEditActionPerformed
 

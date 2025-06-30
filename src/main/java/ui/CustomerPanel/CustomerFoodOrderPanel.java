@@ -14,18 +14,20 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import Business.CartItem;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.SwingConstants;
+import ui.GradientPanel;
 
 /**
  *
  * @author ushakeshravya
  */
-public class CustomerFoodOrderPanel extends javax.swing.JPanel {
+public class CustomerFoodOrderPanel extends GradientPanel {
 
     private JPanel workarea;
     private EcoSystem system;
@@ -39,6 +41,14 @@ public class CustomerFoodOrderPanel extends javax.swing.JPanel {
      * Creates new form CustomerFoodOrderPanel
      */
     public CustomerFoodOrderPanel(JPanel workarea, EcoSystem system, UserAccount user) {
+        super(
+            new Color[] {
+                new Color(221, 160, 221),   // Soft Lavender
+                new Color(230, 230, 250),   // Lavender
+                new Color(216, 191, 216)    // Thistle
+            },
+            new float[] { 0f, 0.5f, 1f }
+        );
         this.workarea = workarea;
         this.system = system;
         this.user = user;

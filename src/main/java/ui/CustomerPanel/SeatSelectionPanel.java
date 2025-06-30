@@ -18,12 +18,13 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import ui.GradientPanel;
 
 /**
  *
  * @author ushakeshravya
  */
-public class SeatSelectionPanel extends javax.swing.JPanel {
+public class SeatSelectionPanel extends GradientPanel {
      private final JPanel workarea;
      private final EcoSystem system;
 private final UserAccount user;
@@ -35,6 +36,14 @@ private final String email;
      * Creates new form SeatSelectionPanel
      */
     public SeatSelectionPanel(JPanel workarea, EcoSystem system, UserAccount user, String showName, String email) {
+        super(
+            new Color[] {
+                new Color(221, 160, 221),   // Soft Lavender
+                new Color(230, 230, 250),   // Lavender
+                new Color(216, 191, 216)    // Thistle
+            },
+            new float[] { 0f, 0.5f, 1f }
+        );
         this.workarea = workarea;
         this.system = system;
         this.user = user;

@@ -9,14 +9,16 @@ import Business.Organization.Organization;
 import Business.Role.Role;
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
+import java.awt.Color;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import ui.GradientPanel;
 
 /**
  *
  * @author ushakeshravya
  */
-public class EditUserPanel extends javax.swing.JPanel {
+public class EditUserPanel extends ui.GradientPanel {
 
     private JPanel workarea;
     private EcoSystem system;
@@ -27,6 +29,14 @@ public class EditUserPanel extends javax.swing.JPanel {
      * Creates new form EditUserPanel
      */
     public EditUserPanel(JPanel workarea, EcoSystem system, UserAccount user) {
+        super(  // 👇 Gradient: Red → Black → Silver
+            new Color[] {
+                new Color(139, 0, 0),
+                new Color(30, 30, 30),
+                new Color(192, 192, 192)
+            },
+            new float[] { 0f, 0.5f, 1f }
+        );
         this.workarea = workarea;
         this.system = system;
         this.user = user;
@@ -80,6 +90,28 @@ private String getRoleString(Role role) {
     return "Unknown";
 }
 
+private Role getRoleFromString(String roleName) {
+    switch (roleName) {
+        case "Producer":
+            return new Business.Role.ProducerRole();
+        case "Distributor":
+            return new Business.Role.DistributorRole();
+        case "Manager":
+            return new Business.Role.ManagerRole();
+        case "Ticket Seller":
+            return new Business.Role.TicketSellerRole();
+        case "Customer":
+            return new Business.Role.CustomerRole();
+        case "Concession Staff":
+            return new Business.Role.ConcessionStaffRole();
+        case "Technician":
+            return new Business.Role.TechnicianRole();
+        case "Accountant":
+            return new Business.Role.AccountantRole();
+        default:
+            return null;
+    }
+}
 
 
     /**
@@ -112,15 +144,20 @@ private String getRoleString(Role role) {
         });
 
         lblEditUserAccount.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
+        lblEditUserAccount.setForeground(new java.awt.Color(255, 255, 255));
         lblEditUserAccount.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblEditUserAccount.setText("Edit User Account");
 
+        lblUsername.setForeground(new java.awt.Color(255, 255, 255));
         lblUsername.setText("Username :");
 
+        lblPassword.setForeground(new java.awt.Color(255, 255, 255));
         lblPassword.setText("Password :");
 
+        lblOrganization.setForeground(new java.awt.Color(255, 255, 255));
         lblOrganization.setText("Organization :");
 
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Role :");
 
         txtPassword.addActionListener(new java.awt.event.ActionListener() {
@@ -137,6 +174,11 @@ private String getRoleString(Role role) {
         });
 
         btnCancel.setText("Cancel");
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelActionPerformed(evt);
+            }
+        });
 
         cmbRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -219,7 +261,46 @@ private String getRoleString(Role role) {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
+    String newUsername = txtUsername.getText().trim();
+    String newPassword = txtPassword.getText().trim();
+    String newOrg = (String) cmbOrganization.getSelectedItem();
+    String newRoleStr = (String) cmbRole.getSelectedItem();
+
+    if (newUsername.isEmpty() || newPassword.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Username and Password cannot be empty.", "Input Error", JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+
+    // Check for username conflict with other users
+    for (UserAccount ua : system.getUserAccountDirectory().getUserList()) {
+        if (ua != user && ua.getusername().equals(newUsername)) {
+            JOptionPane.showMessageDialog(this, "Username already exists. Please choose a different one.", "Conflict", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+    }
+    // Update the user account with edited values
+    user.setusername(newUsername);
+    user.setPassword(newPassword);
+    user.setOrganization(newOrg);
+    user.setRole(getRoleFromString(newRoleStr));
+
+    JOptionPane.showMessageDialog(this, "User updated successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+
+    // Go back
+    workarea.remove(this);
+    ((CardLayout) workarea.getLayout()).previous(workarea);
     }//GEN-LAST:event_btnSaveActionPerformed
+
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+        // TODO add your handling code here:
+        int confirm = JOptionPane.showConfirmDialog(this, 
+        "Discard all changes and go back?", "Cancel Edit", JOptionPane.YES_NO_OPTION);
+
+    if (confirm == JOptionPane.YES_OPTION) {
+        workarea.remove(this);
+        ((CardLayout) workarea.getLayout()).previous(workarea);
+    }
+    }//GEN-LAST:event_btnCancelActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

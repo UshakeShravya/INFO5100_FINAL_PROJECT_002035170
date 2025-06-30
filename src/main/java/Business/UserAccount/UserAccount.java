@@ -19,7 +19,25 @@ import java.util.List;
 
 
 public class UserAccount {
+
+    
     private String username;
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public void setOrganization(String organization) {
+        this.organization = organization;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
     private String password;
     private Role role;
     private String organization;
@@ -58,6 +76,12 @@ public Date getLastSeenFoodNotification() {
 
 public void setLastSeenFoodNotification(Date lastSeenFoodNotification) {
     this.lastSeenFoodNotification = lastSeenFoodNotification;
+}
+
+
+@Override
+public String toString() {
+    return username;
 }
 
 }
