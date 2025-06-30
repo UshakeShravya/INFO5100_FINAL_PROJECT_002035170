@@ -68,6 +68,7 @@ super(  // 👇 Gradient: Red → Black → Silver
         tblMngUserAccnts = new javax.swing.JTable();
         btnDelete = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
+        btnEdit = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -111,21 +112,29 @@ super(  // 👇 Gradient: Red → Black → Silver
             }
         });
 
+        btnEdit.setText("Edit");
+        btnEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(213, 213, 213)
-                        .addComponent(btnDelete))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(btnBack)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(btnBack)
+                .addContainerGap(422, Short.MAX_VALUE))
             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 512, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(73, 73, 73)
+                .addComponent(btnEdit)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnDelete)
+                .addGap(64, 64, 64))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -137,7 +146,9 @@ super(  // 👇 Gradient: Red → Black → Silver
                 .addGap(31, 31, 31)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(78, 78, 78)
-                .addComponent(btnDelete)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnDelete)
+                    .addComponent(btnEdit))
                 .addContainerGap(128, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -187,10 +198,41 @@ super(  // 👇 Gradient: Red → Black → Silver
     }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
+    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = tblMngUserAccnts.getSelectedRow();
+
+    if (selectedRow < 0) {
+        JOptionPane.showMessageDialog(this, "Please select a user to edit.", "No selection", JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+
+    String username = (String) tblMngUserAccnts.getValueAt(selectedRow, 0);
+    UserAccount selectedUser = null;
+    for (UserAccount ua : system.getUserAccountDirectory().getUserList()) {
+        if (ua.getusername().equals(username)) {
+            selectedUser = ua;
+            break;
+        }
+    }
+
+    if (selectedUser == null) {
+        JOptionPane.showMessageDialog(this, "User not found!", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    EditUserPanel editPanel = new EditUserPanel(workarea, system, selectedUser);
+
+    workarea.add("EditUserPanel", editPanel);
+    ((CardLayout) workarea.getLayout()).next(workarea);
+
+    }//GEN-LAST:event_btnEditActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnEdit;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblMngUserAccnts;

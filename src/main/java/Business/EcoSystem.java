@@ -28,7 +28,10 @@ import Business.WorkRequest.TicketBookingRequest;
 import java.util.*;
 import Business.Enterprise.Enterprise;
 import Business.Organization.ConcessionOrganization;
+import Business.Organization.ManagerOrganization;
 import Business.Organization.Organization;
+import Business.Organization.OrganizationDirectory;
+import Business.Role.Role;
 import Business.WorkRequest.FoodOrderRequest;
 import Business.WorkRequest.WorkRequest;
 import com.github.javafaker.Faker;
@@ -45,8 +48,22 @@ public class EcoSystem {
     private List<TicketBookingRequest> ticketBookingReqs = new ArrayList<>();
     private List<FinancialUpdateRequest> financialReqs   = new ArrayList<>();
     private List<Enterprise> enterpriseList = new ArrayList<>();
+    private OrganizationDirectory organizationDirectory;
     
 
+public List<Role> getSupportedRole() {
+    List<Role> roles = new ArrayList<>();
+    roles.add(new AdminRole());
+    roles.add(new ProducerRole());
+    roles.add(new DistributorRole());
+    roles.add(new ManagerRole());
+    roles.add(new TechnicianRole());
+    roles.add(new ConcessionStaffRole());
+    roles.add(new TicketSellerRole());
+    roles.add(new AccountantRole());
+    roles.add(new CustomerRole());
+    return roles;
+}
 
 
 
@@ -56,11 +73,21 @@ public class EcoSystem {
 } 
     public EcoSystem() {
         this.userAccountDirectory = new UserAccountDirectory();
+        this.organizationDirectory = new OrganizationDirectory(); 
         preloadUsers(); // populate test users
         loadFakeData();
     }
 
     private void preloadUsers() {
+        
+        Organization org1 = new ConcessionOrganization();
+organizationDirectory.addOrganization(org1);
+
+Organization org2 = new ManagerOrganization();
+organizationDirectory.addOrganization(org2);
+
+// Add more as needed
+
         
     // Add one Admin:
     userAccountDirectory.addUserAccount(
@@ -239,6 +266,9 @@ public void addFoodOrderRequest(FoodOrderRequest request) {
     this.foodOrderRequests.add(request);
 }
 
+public OrganizationDirectory getOrganizationDirectory() {
+    return this.organizationDirectory;
+}
 
 
 }

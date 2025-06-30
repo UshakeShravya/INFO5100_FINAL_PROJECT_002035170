@@ -3,7 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Business.Organization;
+import Business.Role.Role;
 import Business.WorkQueue;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -44,4 +47,14 @@ public class Organization {
     }
 }
     
+        public List<Role> getSupportedRole() {
+    return new ArrayList<>(); // default empty, override in subclasses
 }
+
+        
+        @Override
+public String toString() {
+    return this.name; // or whatever you want to show in the dropdown
+}
+}
+
